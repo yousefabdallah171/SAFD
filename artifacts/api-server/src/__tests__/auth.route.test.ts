@@ -16,6 +16,7 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
+  // Close the pg connection pool so vitest can exit cleanly
   const { pool } = await import("@workspace/db");
   await pool.end();
 });

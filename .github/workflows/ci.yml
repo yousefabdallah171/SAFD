@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-# Use Node 24 runner internals to silence the Node 20 deprecation warning
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -34,6 +33,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Build shared lib packages (generates .d.ts for type-safe imports)
+        run: pnpm run typecheck:libs
+
+      - name: Build API server (compile check via esbuild)
+        run: pnpm --filter @workspace/api-server build
+
       - name: Start test database
         run: |
           docker compose -f docker-compose.test.yml \
@@ -55,9 +60,6 @@ jobs:
 
       - name: Run DB migrations on test database
         run: pnpm --filter @workspace/db push
-
-      - name: TypeScript check (backend)
-        run: pnpm --filter @workspace/api-server typecheck
 
       - name: Run backend tests
         run: pnpm --filter @workspace/api-server test:run
@@ -88,13 +90,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: TypeScript check (frontend)
-        run: pnpm --filter @workspace/safd typecheck
+      - name: Build shared lib packages (generates .d.ts for type-safe imports)
+        run: pnpm run typecheck:libs
 
       - name: Run frontend tests
         run: pnpm --filter @workspace/safd test:run
 
-      - name: Build frontend (smoke build)
+      - name: Build frontend (compile check via Vite)
         run: pnpm --filter @workspace/safd build
 
   # ─────────────────────────────────────────────
