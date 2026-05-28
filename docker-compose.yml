@@ -21,6 +21,7 @@ services:
       context: .
       dockerfile: docker/api.Dockerfile
     restart: unless-stopped
+    stop_grace_period: 15s
     env_file:
       - .env
     environment:

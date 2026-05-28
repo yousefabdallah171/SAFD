@@ -1,0 +1,110 @@
+name: CI / CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─────────────────────────────────────────────
+  # JOB 1 – Backend tests
+  # ─────────────────────────────────────────────
+  test-backend:
+    name: Backend Tests
+    runs-on: self-hosted
+    env:
+      DATABASE_URL: postgresql://safd_test:safd_test_pwd@localhost:5433/safd_test
+      SESSION_SECRET: ci-test-secret-not-used-in-production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable corepack / pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Start test database
+        run: |
+          docker compose -f docker-compose.test.yml \
+            --project-name safd-test up -d
+
+      - name: Wait for test database to be healthy
+        run: |
+          for i in $(seq 1 30); do
+            if docker compose -f docker-compose.test.yml \
+                --project-name safd-test \
+                exec -T test-db \
+                pg_isready -U safd_test -d safd_test 2>/dev/null; then
+              echo "Test DB ready"
+              break
+            fi
+            echo "Waiting for test DB... ($i/30)"
+            sleep 2
+          done
+
+      - name: Run DB migrations on test database
+        run: pnpm --filter @workspace/db push
+
+      - name: TypeScript check (backend)
+        run: pnpm --filter @workspace/api-server typecheck
+
+      - name: Run backend tests
+        run: pnpm --filter @workspace/api-server test:run
+
+      - name: Stop & remove test database
+        if: always()
+        run: |
+          docker compose -f docker-compose.test.yml \
+            --project-name safd-test down -v
+
+  # ─────────────────────────────────────────────
+  # JOB 2 – Frontend tests
+  # ─────────────────────────────────────────────
+  test-frontend:
+    name: Frontend Tests
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable corepack / pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: TypeScript check (frontend)
+        run: pnpm --filter @workspace/safd typecheck
+
+      - name: Run frontend tests
+        run: pnpm --filter @workspace/safd test:run
+
+      - name: Build frontend (smoke build)
+        run: pnpm --filter @workspace/safd build
+
+  # ─────────────────────────────────────────────
+  # JOB 3 – Deploy (only on push to main)
+  # ─────────────────────────────────────────────
+  deploy:
+    name: Deploy (zero-downtime)
+    runs-on: self-hosted
+    needs: [test-backend, test-frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Run zero-downtime deployment
+        run: bash /home/youesf-abdallah-safd/htdocs/safd.youesf-abdallah.online/deploy.sh
+
+      - name: Verify site is up
+        run: |
+          sleep 5
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://safd.youesf-abdallah.online/)
+          echo "HTTP status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "FAILED: site returned $STATUS"
+            exit 1
+          fi
+          echo "Site is up and returning 200 OK"

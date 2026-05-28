@@ -1,0 +1,14 @@
+services:
+  test-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: safd_test
+      POSTGRES_USER: safd_test
+      POSTGRES_PASSWORD: safd_test_pwd
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U safd_test -d safd_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
