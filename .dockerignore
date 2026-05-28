@@ -1,0 +1,12 @@
+node_modules
+.pnpm-store
+.git
+.gitignore
+.env
+.env.*
+dist
+tmp
+coverage
+*.tsbuildinfo
+artifacts/safd/dist
+artifacts/api-server/dist

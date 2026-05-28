@@ -1,0 +1,982 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Social Auto Funnel Dashboard API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: auth
+    description: Authentication
+  - name: meta-credentials
+    description: Meta API credential management
+  - name: posts
+    description: Posts and Reels from Meta
+  - name: rules
+    description: Automation rules
+  - name: comments
+    description: Comments from Meta
+  - name: activity-logs
+    description: Activity and event logs
+  - name: analytics
+    description: Analytics and metrics
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterBody"
+      responses:
+        "201":
+          description: User registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout current user
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current authenticated user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /meta-credentials:
+    get:
+      operationId: getMetaCredentials
+      tags: [meta-credentials]
+      summary: Get Meta API credentials for current tenant
+      responses:
+        "200":
+          description: List of credentials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MetaCredential"
+    post:
+      operationId: createMetaCredential
+      tags: [meta-credentials]
+      summary: Add Meta API credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMetaCredentialBody"
+      responses:
+        "201":
+          description: Credential created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MetaCredential"
+        "400":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /meta-credentials/{id}:
+    delete:
+      operationId: deleteMetaCredential
+      tags: [meta-credentials]
+      summary: Delete Meta API credential
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /posts:
+    get:
+      operationId: listPosts
+      tags: [posts]
+      summary: List all posts and reels
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [post, reel, all]
+            default: all
+        - name: platform
+          in: query
+          schema:
+            type: string
+            enum: [facebook, instagram, all]
+            default: all
+      responses:
+        "200":
+          description: List of posts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedPosts"
+
+  /posts/{id}:
+    get:
+      operationId: getPost
+      tags: [posts]
+      summary: Get a single post by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Post details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+
+  /posts/sync:
+    post:
+      operationId: syncPosts
+      tags: [posts]
+      summary: Trigger a sync of posts from Meta
+      responses:
+        "200":
+          description: Sync triggered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /rules:
+    get:
+      operationId: listRules
+      tags: [rules]
+      summary: List all automation rules
+      parameters:
+        - name: postId
+          in: query
+          schema:
+            type: integer
+        - name: isGlobal
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AutomationRule"
+    post:
+      operationId: createRule
+      tags: [rules]
+      summary: Create an automation rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRuleBody"
+      responses:
+        "201":
+          description: Rule created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AutomationRule"
+
+  /rules/{id}:
+    get:
+      operationId: getRule
+      tags: [rules]
+      summary: Get a rule by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Rule
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AutomationRule"
+    put:
+      operationId: updateRule
+      tags: [rules]
+      summary: Update an automation rule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateRuleBody"
+      responses:
+        "200":
+          description: Updated rule
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AutomationRule"
+    delete:
+      operationId: deleteRule
+      tags: [rules]
+      summary: Delete an automation rule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /rules/{id}/toggle:
+    post:
+      operationId: toggleRule
+      tags: [rules]
+      summary: Enable or disable an automation rule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToggleRuleBody"
+      responses:
+        "200":
+          description: Rule toggled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AutomationRule"
+
+  /comments:
+    get:
+      operationId: listComments
+      tags: [comments]
+      summary: List comments
+      parameters:
+        - name: postId
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, replied, dm_sent, failed, all]
+            default: all
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: List of comments
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedComments"
+
+  /activity-logs:
+    get:
+      operationId: listActivityLogs
+      tags: [activity-logs]
+      summary: List activity logs
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [comment_received, reply_sent, dm_sent, rule_matched, error, all]
+            default: all
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: Activity logs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedActivityLogs"
+
+  /analytics/summary:
+    get:
+      operationId: getAnalyticsSummary
+      tags: [analytics]
+      summary: Get analytics summary (KPI overview)
+      responses:
+        "200":
+          description: Analytics summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyticsSummary"
+
+  /analytics/engagement:
+    get:
+      operationId: getEngagementMetrics
+      tags: [analytics]
+      summary: Get engagement metrics over time
+      parameters:
+        - name: days
+          in: query
+          schema:
+            type: integer
+            default: 30
+      responses:
+        "200":
+          description: Engagement metrics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EngagementMetric"
+
+  /analytics/top-posts:
+    get:
+      operationId: getTopPosts
+      tags: [analytics]
+      summary: Get top performing posts by engagement
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 5
+      responses:
+        "200":
+          description: Top posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TopPost"
+
+  /analytics/recent-activity:
+    get:
+      operationId: getRecentActivity
+      tags: [analytics]
+      summary: Get recent activity feed for dashboard
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityLog"
+
+  /analytics/rule-performance:
+    get:
+      operationId: getRulePerformance
+      tags: [analytics]
+      summary: Get performance stats per automation rule
+      responses:
+        "200":
+          description: Rule performance stats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RulePerformance"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required: [error, message]
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required: [success]
+
+    RegisterBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        name:
+          type: string
+      required: [email, password, name]
+
+    LoginBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required: [email, password]
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required: [token, user]
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        name:
+          type: string
+        tenantId:
+          type: integer
+        emailVerified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, email, name, tenantId, emailVerified, createdAt]
+
+    MetaCredential:
+      type: object
+      properties:
+        id:
+          type: integer
+        tenantId:
+          type: integer
+        appId:
+          type: string
+        tokenPreview:
+          type: string
+          description: Last 4 chars of token (masked)
+        platform:
+          type: string
+          enum: [facebook, instagram, both]
+        status:
+          type: string
+          enum: [active, expired, invalid]
+        connectedAt:
+          type: string
+          format: date-time
+      required: [id, tenantId, appId, tokenPreview, platform, status, connectedAt]
+
+    CreateMetaCredentialBody:
+      type: object
+      properties:
+        appId:
+          type: string
+        appSecret:
+          type: string
+        accessToken:
+          type: string
+        platform:
+          type: string
+          enum: [facebook, instagram, both]
+      required: [appId, appSecret, accessToken, platform]
+
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+        tenantId:
+          type: integer
+        metaId:
+          type: string
+        platform:
+          type: string
+          enum: [facebook, instagram]
+        type:
+          type: string
+          enum: [post, reel]
+        caption:
+          type: string
+        thumbnailUrl:
+          type: string
+        permalink:
+          type: string
+        commentCount:
+          type: integer
+        likeCount:
+          type: integer
+        automationEnabled:
+          type: boolean
+        rulesCount:
+          type: integer
+        publishedAt:
+          type: string
+          format: date-time
+        syncedAt:
+          type: string
+          format: date-time
+      required: [id, tenantId, metaId, platform, type, commentCount, likeCount, automationEnabled, rulesCount, publishedAt, syncedAt]
+
+    PaginatedPosts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+        totalPages:
+          type: integer
+      required: [data, total, page, limit, totalPages]
+
+    AutomationRule:
+      type: object
+      properties:
+        id:
+          type: integer
+        tenantId:
+          type: integer
+        postId:
+          type: integer
+          nullable: true
+        isGlobal:
+          type: boolean
+        name:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        replyText:
+          type: string
+        dmMessage:
+          type: string
+          nullable: true
+        sendDm:
+          type: boolean
+        isEnabled:
+          type: boolean
+        matchCount:
+          type: integer
+        replyCount:
+          type: integer
+        dmCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required: [id, tenantId, isGlobal, name, keywords, replyText, sendDm, isEnabled, matchCount, replyCount, dmCount, createdAt, updatedAt]
+
+    CreateRuleBody:
+      type: object
+      properties:
+        postId:
+          type: integer
+          nullable: true
+        isGlobal:
+          type: boolean
+          default: false
+        name:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        replyText:
+          type: string
+        dmMessage:
+          type: string
+          nullable: true
+        sendDm:
+          type: boolean
+          default: false
+      required: [name, keywords, replyText]
+
+    UpdateRuleBody:
+      type: object
+      properties:
+        name:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        replyText:
+          type: string
+        dmMessage:
+          type: string
+          nullable: true
+        sendDm:
+          type: boolean
+        isEnabled:
+          type: boolean
+
+    ToggleRuleBody:
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
+      required: [isEnabled]
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+        tenantId:
+          type: integer
+        postId:
+          type: integer
+        metaCommentId:
+          type: string
+        authorName:
+          type: string
+        authorId:
+          type: string
+        text:
+          type: string
+        status:
+          type: string
+          enum: [pending, replied, dm_sent, failed]
+        repliedAt:
+          type: string
+          format: date-time
+          nullable: true
+        dmSentAt:
+          type: string
+          format: date-time
+          nullable: true
+        matchedRuleId:
+          type: integer
+          nullable: true
+        receivedAt:
+          type: string
+          format: date-time
+      required: [id, tenantId, postId, metaCommentId, authorName, authorId, text, status, receivedAt]
+
+    PaginatedComments:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Comment"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+        totalPages:
+          type: integer
+      required: [data, total, page, limit, totalPages]
+
+    ActivityLog:
+      type: object
+      properties:
+        id:
+          type: integer
+        tenantId:
+          type: integer
+        type:
+          type: string
+          enum: [comment_received, reply_sent, dm_sent, rule_matched, error]
+        postId:
+          type: integer
+          nullable: true
+        commentId:
+          type: integer
+          nullable: true
+        ruleId:
+          type: integer
+          nullable: true
+        message:
+          type: string
+        metadata:
+          type: object
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, tenantId, type, message, createdAt]
+
+    PaginatedActivityLogs:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityLog"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+        totalPages:
+          type: integer
+      required: [data, total, page, limit, totalPages]
+
+    AnalyticsSummary:
+      type: object
+      properties:
+        totalComments:
+          type: integer
+        totalReplies:
+          type: integer
+        totalDms:
+          type: integer
+        totalPosts:
+          type: integer
+        totalRules:
+          type: integer
+        replyRate:
+          type: number
+          description: Percentage 0-100
+        dmDeliveryRate:
+          type: number
+          description: Percentage 0-100
+        activeRules:
+          type: integer
+        commentsToday:
+          type: integer
+        repliesToday:
+          type: integer
+        avgResponseTimeSeconds:
+          type: number
+      required: [totalComments, totalReplies, totalDms, totalPosts, totalRules, replyRate, dmDeliveryRate, activeRules, commentsToday, repliesToday, avgResponseTimeSeconds]
+
+    EngagementMetric:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        comments:
+          type: integer
+        replies:
+          type: integer
+        dms:
+          type: integer
+        errors:
+          type: integer
+      required: [date, comments, replies, dms, errors]
+
+    TopPost:
+      type: object
+      properties:
+        id:
+          type: integer
+        caption:
+          type: string
+          nullable: true
+        platform:
+          type: string
+        type:
+          type: string
+        thumbnailUrl:
+          type: string
+          nullable: true
+        commentCount:
+          type: integer
+        replyCount:
+          type: integer
+        dmCount:
+          type: integer
+        publishedAt:
+          type: string
+          format: date-time
+      required: [id, platform, type, commentCount, replyCount, dmCount, publishedAt]
+
+    RulePerformance:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        isGlobal:
+          type: boolean
+        isEnabled:
+          type: boolean
+        matchCount:
+          type: integer
+        replyCount:
+          type: integer
+        dmCount:
+          type: integer
+        successRate:
+          type: number
+      required: [id, name, isGlobal, isEnabled, matchCount, replyCount, dmCount, successRate]

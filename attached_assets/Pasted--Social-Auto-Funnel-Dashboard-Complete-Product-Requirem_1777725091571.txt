@@ -1,0 +1,3780 @@
+# Social Auto Funnel Dashboard — Complete Product Requirements Document (v1.0 + v2.0)
+
+---
+
+## 1. PROJECT IDENTITY
+
+| Field | Value |
+|-------|-------|
+| **Project Name** | Social Auto Funnel Dashboard (SAFD) |
+| **Project ID** | PRD-001 |
+| **Current Version** | v1.0 (Live), v2.0 (In Development) |
+| **Status** | v1.0: Stable, v2.0: Draft |
+| **Priority** | High |
+| **Created Date** | May 1, 2026 |
+| **Last Updated** | May 2, 2026 |
+| **Owner** | [Your Name] |
+| **Team Members** | Frontend Developer, Backend Developer, Mobile Developer, DevOps Engineer, QA Engineer, AI/ML Engineer |
+| **Tech Stack** | React 18 + TypeScript + Tailwind CSS (Web Frontend), React Native + TypeScript (Mobile - v2.0), Node.js + NestJS + TypeScript (Backend), PostgreSQL + Redis (Database), BullMQ (Job Queue), OpenAI/Claude/Gemini API (AI - v2.0) |
+| **Repository** | [TBD] |
+| **Git Branch Prefix** | NNN-feature-name |
+| **PRD File Path** | docs/PRD.md |
+
+---
+
+## 2. PROBLEM & PURPOSE
+
+### Problem Statement - v1.0
+Social media managers and small business owners spend 5+ hours daily manually responding to comments and engaging with followers across Facebook and Instagram. This manual process is time-consuming, inconsistent, and causes them to miss opportunities to convert engaged followers into customers during off-hours. No automation exists that uses official APIs only (not scraping), respecting Meta's compliance rules.
+
+### Problem Statement - v2.0 (Expansion)
+v1.0 users still spend 1-2 hours daily writing reply text, even with automation enabled. Managing multiple business accounts requires switching between platforms. No visibility into which automated interactions convert to sales. Mobile users can't manage accounts on-the-go. Agencies managing 10+ clients have no way to handle them in one platform.
+
+### Project Purpose - v1.0
+Build a multi-tenant SaaS platform that automates comment replies and DM follow-ups based on user-defined rules, allowing each business to manage their social media engagement at scale without manual intervention using only official Meta APIs.
+
+### Project Purpose - v2.0
+Expand v1.0 with AI-powered reply generation (removing manual writing), native mobile app (manage anytime/anywhere), multi-tenant account switching (manage multiple businesses seamlessly), CRM integration (track conversions), and advanced analytics (prove ROI).
+
+### Business Value - v1.0
+- **Time Savings:** Reduces manual engagement time by 80% (5+ hours/day → 1 hour/day)
+- **Response Rate:** Increases response rate to 100% (24/7 automation)
+- **Conversion:** Improves conversion from followers → customers via automated DM funnels
+- **Scalability:** Allows users to manage unlimited posts and automate unlimited replies
+
+### Business Value - v2.0
+- **Additional Time Savings:** AI replies reduce remaining 1-2 hours to 10 minutes/day (90% reduction)
+- **Mobile Engagement:** 24/7 mobile access increases engagement by 300%
+- **Multi-Business Scale:** Agencies can manage 10+ clients in one platform
+- **Conversion Tracking:** CRM integration shows exact ROI (comment → DM → lead → sale)
+- **Monetization:** Unlock Premium tier ($49/month) with AI, advanced analytics, CRM
+
+### Opportunity
+v1.0 captures SMB market. v2.0 targets agencies (10x higher LTV) and enterprises. AI replies are top feature request. 40% of users want mobile access. CRM integration is key to proving ROI and increasing retention.
+
+---
+
+## 3. GOALS & OBJECTIVES
+
+### Primary Goal - v1.0
+Deliver a fully functional multi-tenant SaaS dashboard by end of Q2 2026 that allows users to:
+1. Register and authenticate
+2. Add their Meta API credentials securely
+3. View all Facebook posts and Instagram posts/reels
+4. Configure unlimited automation rules per post/reel
+5. Automatically reply to comments and send DMs based on triggers
+6. Track and analyze all engagement with real-time metrics
+
+### Primary Goal - v2.0
+Enhance v1.0 with:
+1. AI-powered smart reply generation (user chooses API provider or uses SAFD default)
+2. Native mobile app (iOS + Android) with core features
+3. Multi-tenant account switching for managing multiple businesses
+4. CRM integration (HubSpot, Pipedrive, Salesforce) to track conversions
+5. Advanced analytics dashboard with ROI visualization
+6. All within 99.9% uptime and < 2s load times
+
+### Objectives - v1.0
+1. **Onboarding:** Users can register, authenticate, and complete API setup in < 5 minutes
+2. **Integration:** Seamlessly connect to Facebook & Instagram via official Meta APIs with proper OAuth flow
+3. **Automation:** 100% of comments matching rules trigger auto-reply and DM within 2 seconds
+4. **Analytics:** Real-time dashboard showing posts, engagement, reply rates, DM delivery, conversions
+5. **Reliability:** 99.9% uptime with proper error handling, retry logic, and queue-based processing
+
+### Objectives - v2.0
+1. **AI Integration:** Generate contextually relevant replies in < 2 seconds, 95% user approval rate
+2. **Mobile Adoption:** 40% of DAU on mobile within 3 months of launch
+3. **Multi-Tenant:** Users manage 3+ accounts simultaneously without confusion
+4. **CRM Sync:** Track 100% of comments through conversion funnel (comment → DM → sale)
+5. **Monetization:** 30% of users upgrade to Premium tier within 6 months
+6. **Performance:** API responses < 500ms, mobile app < 3s load, battery usage < 5%/hour
+
+### Success Definition - v1.0
+- 100+ active users in first month
+- 50+ avg rules configured per user
+- 95% comment response rate (auto-reply success)
+- 90% DM delivery rate (within Meta compliance)
+- < 500ms API response time
+- Zero account bans due to improper API usage
+- 99.9% uptime
+
+### Success Definition - v2.0
+- 500+ active users by end of v2.0
+- 40%+ monthly retention on Premium tier
+- 95% AI reply approval rate (users accept generated replies)
+- 3.5+ star app rating (iOS/Android)
+- 50%+ of Premium users connected to CRM
+- Net Promoter Score (NPS) > 60
+- 40% of DAU on mobile
+
+### Non-Goals - v1.0
+- AI-generated replies (v2.0)
+- CRM integration (v2.0)
+- Multi-user team management (v2.0)
+- Advanced predictive analytics (v2.0)
+- Mobile app (v2.0)
+- TikTok/YouTube (v2.0+)
+
+### Non-Goals - v2.0
+- Team collaboration features (v2.1+)
+- AI image generation (v3+)
+- TikTok/YouTube/LinkedIn integration (v2.1+)
+- SMS/WhatsApp messaging (v3+)
+- Advanced ML-based lead scoring (v2.1+)
+- Custom domains (v2.1+)
+- White-label version (v3+)
+
+---
+
+## 4. SCOPE
+
+### In Scope - v1.0
+
+**Frontend:**
+- Landing page (marketing, CTA, features overview)
+- Registration & login page
+- Email verification flow
+- Dashboard with sidebar navigation
+- API credential management page (secure input for user's Meta API keys)
+- Onboarding wizard (5-step guide to add API and first post)
+- Posts & reels listing page (paginated, searchable)
+- Per-post automation rule builder (UI for keywords, reply text, DM message)
+- Global rules configuration (apply rules to all posts)
+- Activity/logs dashboard (real-time feed of comments, replies, DMs)
+- Analytics dashboard (engagement metrics, response rates, conversions, charts)
+- Settings page (account, integrations, billing placeholder)
+
+**Backend:**
+- User authentication (email/password registration, JWT login)
+- User profile and account management
+- Tenant isolation (each user's data completely separate)
+- Meta OAuth integration (Facebook & Instagram login)
+- API credential encryption and secure storage
+- Fetch posts/reels from Meta Graph API
+- Webhook receiver for incoming comments (Meta Webhooks)
+- Rule matching engine (keyword-based triggers)
+- Comment auto-reply service
+- Auto-DM messaging service
+- Activity logging and tracking
+- Analytics aggregation (engagement, reply rates, DM delivery)
+- Error handling and retry logic (exponential backoff)
+- Rate limit handling (queue-based processing)
+- Database and caching (PostgreSQL + Redis)
+
+**Database:**
+- Users table (multi-tenant base)
+- Tenants table (account/workspace per user)
+- Meta credentials table (encrypted API tokens)
+- Posts table (synced from Meta)
+- Reels table (synced from Meta)
+- Automation rules table (per-post and global)
+- Comments table (received via webhook)
+- Replies table (auto-replies sent)
+- DM messages table (auto-DMs sent)
+- Activity logs table (tracking all actions)
+- Analytics snapshots table (historical metrics)
+
+**Infrastructure:**
+- REST API with versioning (/api/v1/)
+- Webhook endpoint for Meta callbacks
+- Job queue (BullMQ + Redis) for processing
+- Database migrations and seeding
+- CI/CD pipeline (GitHub Actions)
+- Docker containerization
+- Deployment ready (VPS/AWS/Railway)
+
+### In Scope - v2.0
+
+**Frontend (Web Enhancements):**
+- AI reply generation with user API key management (OpenAI, Claude, Gemini)
+- Multi-tenant account switching UI (dropdown selector)
+- Tenant isolation verification (row-level security on all queries)
+- CRM integration setup and credential management
+- Advanced analytics with ROI tracking and conversion funnel
+- Approval workflow for AI-generated replies
+- AI reply settings (tone, length, language, auto-approve toggle)
+- Usage tracking and cost monitoring for AI
+- Bulk rule management and import/export
+- Enhanced activity logs with AI metadata
+- Real-time updates via WebSocket
+
+**Mobile App (React Native):**
+- User authentication (email/password + biometric)
+- Tenant selector (switch between accounts)
+- Dashboard with key metrics
+- Real-time comment feed
+- One-tap AI reply approval/rejection
+- Quick reply preview
+- Rules management (create/edit rules)
+- Activity logs view
+- Analytics mini-dashboard
+- Push notifications for new comments and hot leads
+- Settings (AI provider, notifications, account)
+- Offline mode (cache recent data)
+- Local notifications for high-priority comments
+- iOS lock screen widgets (iOS 16+)
+- Biometric settings per feature
+
+**Backend (v2.0):**
+- AI provider integration (OpenAI, Claude, Gemini, Groq)
+- API key encryption and secure storage (AES-256)
+- AI reply generation service (prompt engineering, response formatting)
+- Token usage tracking and cost calculation per tenant
+- Monthly limit enforcement per tenant
+- Tenant switching backend logic (verify isolation)
+- CRM integration engine (HubSpot, Pipedrive, Salesforce)
+- Contact auto-creation from comments
+- Conversion tracking (comment → DM → CRM lead → sale)
+- Advanced analytics aggregation (hourly snapshots)
+- Mobile API endpoints (optimized for mobile)
+- FCM setup for push notifications
+- WebSocket server for real-time updates
+- Approval workflow backend for AI replies
+- Sentiment analysis service (detect negative comments)
+- Batch AI reply generation
+
+**Database (v2.0):**
+- ai_providers table (encrypted API keys, usage tracking, monthly limits)
+- ai_replies table (prompt, generated text, tokens used, cost, approval status)
+- crm_integrations table (provider, credentials, mapping, last sync)
+- crm_contacts table (synced contacts, lead status, linked comment)
+- tenants table enhancements (metadata, settings per tenant)
+- mobile_devices table (push notification tokens, device info)
+- approval_queue table (pending AI replies for user review)
+- advanced_analytics table (hourly snapshots of metrics)
+- sentiment_analysis table (comment sentiment, category)
+
+**Infrastructure (v2.0):**
+- Mobile backend APIs (React Native compatible)
+- FCM setup for push notifications (iOS + Android)
+- Redis for mobile session caching
+- Rate limiting per mobile client (by device_id)
+- Mobile-optimized API responses (smaller payloads)
+- WebSocket server for real-time updates (Socket.io or native WebSocket)
+- CI/CD pipeline for iOS/Android builds (GitHub Actions)
+- App Store and Google Play deployment automation
+- Staging and production environments for mobile
+
+### Out of Scope - v1.0
+- AI-powered reply suggestions
+- CRM integration (HubSpot, Salesforce, etc.)
+- Multi-user team collaboration
+- Advanced predictive analytics
+- Native mobile apps
+- TikTok / YouTube integration
+- Marketplace integrations
+- Custom domain support
+- White-label version
+- SMS/WhatsApp messaging
+
+### Out of Scope - v2.0
+- Team collaboration features (v2.1+)
+- AI image generation (v3+)
+- TikTok/YouTube/LinkedIn integration (v2.1+)
+- SMS/WhatsApp messaging (v3+)
+- Marketplace of pre-built rules (v2.1+)
+- Advanced ML-based lead scoring (v2.1+)
+- Custom domains (v2.1+)
+- White-label version (v3+)
+- Zapier/Make integrations (v2.1+)
+
+### Assumptions - v1.0
+1. Users have Meta Business accounts with admin access
+2. Users will provide valid Meta API credentials
+3. Meta APIs remain stable and available
+4. Users comply with Meta's platform policies
+5. Database backups are handled by hosting provider
+6. SSL/TLS certificates managed by hosting
+
+### Assumptions - v2.0
+1. Users will integrate with at least one CRM (HubSpot, Pipedrive, Salesforce)
+2. Users have valid OpenAI/Claude/Gemini API keys or use SAFD's default with monthly limit
+3. Mobile users have iOS 14+ or Android 10+ devices
+4. Multi-tenant users manage up to 10 accounts
+5. CRM sync happens within 5 minutes of contact creation
+6. Push notifications work on 95%+ of devices
+7. Users' AI API keys are valid and funded
+
+### Constraints - v1.0
+1. **Meta API Compliance:**
+   - Must use official Meta Graph API only (no scraping)
+   - Must respect 24-hour messaging window on Facebook
+   - Must comply with Instagram comment reply rules
+   - Must not trigger spam detection or account restrictions
+
+2. **Rate Limits:**
+   - Meta API has rate limits per app (typically 200 calls/user/hour)
+   - Must implement queue and throttling to prevent hitting limits
+   - Batch requests where possible
+
+3. **Regulatory:**
+   - Must comply with GDPR (if EU users)
+   - Must encrypt stored credentials
+   - Must not store or expose user API keys in logs
+
+4. **Technical:**
+   - Frontend must load dashboard in < 2 seconds
+   - API responses must be < 500ms
+   - Database queries optimized for 100K+ records per user
+   - Webhook processing must be async and fast
+
+### Constraints - v2.0
+1. **AI API Costs:** Must track and enforce monthly limits per tenant
+2. **Mobile Size:** App bundle < 50MB (Android), < 100MB (iOS)
+3. **Battery Life:** Mobile app must use < 5% battery per hour of use
+4. **Data Privacy:** All API keys encrypted, no logs contain credentials
+5. **Mobile Performance:** First-load < 3 seconds, API responses < 500ms
+6. **Compliance:** GDPR, CCPA for EU/US users, proper data retention policies
+7. **CRM Rate Limits:** Respect CRM API rate limits (HubSpot 500/min, Salesforce 15K/24h)
+
+### Dependencies - v1.0
+1. Meta Graph API availability and uptime
+2. Meta OAuth for account connection
+3. PostgreSQL database
+4. Redis for caching and queuing
+5. Email service (SendGrid/Mailgun) for verification
+6. Hosting platform (Vercel, Railway, AWS, or self-hosted VPS)
+7. GitHub/GitLab for repository and CI/CD
+
+### Dependencies - v2.0
+1. OpenAI API (user provides key or uses SAFD default)
+2. Claude API (Anthropic) - optional
+3. Google Gemini API - optional
+4. Groq API - optional
+5. HubSpot API / Pipedrive API / Salesforce API
+6. Firebase Cloud Messaging (FCM) for push notifications
+7. Xcode (iOS builds), Android Studio (Android builds)
+8. Google Play Store + Apple App Store accounts
+9. All v1.0 dependencies
+
+---
+
+## 5. USERS & PERSONAS
+
+### Primary User - v1.0 & v2.0
+
+**Name:** Sarah (Small Business Owner)
+**Role:** Social Media Manager / Business Owner
+**Goal:** Manage Facebook and Instagram presence without spending hours daily on manual replies; convert engaged followers into customers
+**Pain Point:** Current process is manual, time-consuming, and misses followers during off-hours
+**Tech Level:** Medium (can manage dashboards, integrations)
+**Frequency:** Daily (10+ hours spent on engagement)
+**Devices:** Desktop (primary for setup), Mobile (occasional checks in v2.0)
+**Success Definition:** Responds to 100% of comments within 2 hours, converts 20+ followers/week into customers, uses automation for 80%+ of replies
+
+---
+
+### Secondary User - v1.0 & v2.0
+
+**Name:** Alex (Content Creator / Agency Manager)
+**Role:** Influencer / Social Media Agency Manager
+**Goal:** Manage multiple clients' accounts or own accounts with streamlined automation
+**Pain Point:** Scaling engagement across multiple accounts is nearly impossible manually
+**Tech Level:** Medium to High (understands APIs, integrations)
+**Frequency:** Daily (15+ hours across accounts)
+**Devices:** Desktop (80%), Mobile (20% for quick checks in v2.0)
+**Success Definition:** Automates 90% of engagement, maintains audience growth, improves response time to < 1 hour
+
+---
+
+### Tertiary User - v2.0 New
+
+**Name:** Marcus (Small Business Owner - Multiple Accounts)
+**Role:** Founder managing multiple business accounts (main store + side project)
+**Goal:** Manage multiple business accounts, use AI to save time on replies, track ROI from social engagement to sales
+**Pain Point:** Switching between accounts is annoying, writing replies is repetitive, doesn't know which comments convert to sales
+**Tech Level:** Medium (comfortable with apps, integrations)
+**Frequency:** Daily (3+ hours spent on social management)
+**Devices:** Desktop (morning reviews), Mobile (on-the-go approvals in v2.0)
+**Success Definition:** Switches between 3 accounts seamlessly, responds to 100% of comments in < 30 minutes, converts 50+ followers/month to customers
+
+---
+
+### Quaternary User - v2.0 New
+
+**Name:** Jessica (Content Creator - Mobile-First)
+**Role:** Manages personal Instagram + side gig with brand partnerships
+**Goal:** Quick approvals of replies while traveling, push notifications alert her to hot leads
+**Pain Point:** Can't manage from phone, misses time-sensitive engagement opportunities
+**Tech Level:** High (power app user)
+**Frequency:** Throughout the day (5+ hours across platforms)
+**Devices:** Mobile (80%), Desktop (20% for detailed analytics)
+**Success Definition:** Approves hot comments within 5 minutes, grows followers by 100+/week, converts brand partnerships via direct engagement
+
+---
+
+### Quinary User - v2.0 New
+
+**Name:** David (Social Media Agency Manager)
+**Role:** Manages 15+ clients' accounts
+**Goal:** Switch between clients, monitor team performance, prove ROI to clients via CRM integration
+**Pain Point:** No way to manage multiple accounts in one place, no visibility into conversions
+**Tech Level:** High (understands integrations, APIs)
+**Frequency:** Daily (managing client dashboards)
+**Devices:** Desktop primary (10+ hours), Mobile (quick checks)
+**Success Definition:** Manages 15 accounts in one dashboard, shows clients clear ROI reports, integrated with client CRMs
+
+---
+
+## 6. MOSCOW FEATURE PRIORITIZATION
+
+### Must Have — P0 (Critical for v1.0 & v2.0)
+
+#### v1.0 Core P0 Features
+
+| ID | Feature | Status | Description | Assigned To | Sprint |
+|-------|---------|--------|-------------|-------------|--------|
+| P0-F001 | User Registration & Authentication | ✓ DONE | Email/password registration, JWT login, email verification | Backend + Frontend | Sprint 1 |
+| P0-F002 | Multi-tenant Isolation | ✓ DONE | Each user has completely isolated data, no cross-tenant leakage | Backend | Sprint 1 |
+| P0-F003 | Meta API Credential Management | ✓ DONE | Secure input and storage of user's Meta API keys, encrypted at rest | Backend + Frontend | Sprint 1 |
+| P0-F004 | Meta OAuth Integration | ✓ DONE | Facebook/Instagram login flow to auto-fetch access tokens | Backend | Sprint 1 |
+| P0-F005 | Fetch Posts & Reels | ✓ DONE | Sync all Facebook posts and Instagram posts/reels from user's account via Meta API | Backend | Sprint 2 |
+| P0-F006 | Dashboard Landing View | ✓ DONE | Display all posts and reels in paginated, searchable list | Frontend | Sprint 2 |
+| P0-F007 | Per-Post Automation Rules | ✓ DONE | UI to create keyword-based rules for each post with reply text and DM message | Frontend + Backend | Sprint 2 |
+| P0-F008 | Global Automation Rules | ✓ DONE | Create rules that apply to all posts/reels at once | Frontend + Backend | Sprint 2 |
+| P0-F009 | Comment Webhook Receiver | ✓ DONE | Receive real-time comment notifications from Meta via webhook | Backend | Sprint 2 |
+| P0-F010 | Rule Matching Engine | ✓ DONE | Match incoming comments against post-specific and global rules based on keywords | Backend | Sprint 2 |
+| P0-F011 | Auto-Reply to Comments | ✓ DONE | Automatically post reply comments within 2 seconds of trigger | Backend | Sprint 3 |
+| P0-F012 | Auto-DM to Commenters | ✓ DONE | Automatically send direct messages to users who comment (within Meta compliance) | Backend | Sprint 3 |
+| P0-F013 | Activity & Logs Dashboard | ✓ DONE | Real-time feed showing all comments, replies, DMs, errors, retries | Frontend + Backend | Sprint 3 |
+| P0-F014 | Error Handling & Retry Logic | ✓ DONE | Exponential backoff, queue-based processing, error logging and alerts | Backend | Sprint 2 |
+| P0-F015 | Queue-Based Processing | ✓ DONE | BullMQ + Redis for rate limit handling and async job processing | Backend | Sprint 1 |
+
+#### v2.0 Critical P0 Features
+
+| ID | Feature | Status | Description | Assigned To | Sprint |
+|-------|---------|--------|-------------|-------------|--------|
+| P0-F016 | AI Reply Generation (OpenAI) | TODO | Generate contextual replies using user's OpenAI API key, < 2s latency | Backend + Frontend | Sprint 1 |
+| P0-F017 | AI Provider Management | TODO | Users add API keys (OpenAI, Claude, Gemini), secure storage, usage tracking | Frontend + Backend | Sprint 1 |
+| P0-F018 | AI Reply Settings | TODO | Configure tone (professional/casual), length (short/medium/long), language, auto-approve toggle | Frontend | Sprint 1 |
+| P0-F019 | AI Reply Approval Workflow | TODO | Show generated reply preview, user approves/rejects before sending to Meta | Frontend + Backend | Sprint 1 |
+| P0-F020 | Mobile App Authentication | TODO | Email/password login + biometric (Face ID, fingerprint) support | Mobile | Sprint 1 |
+| P0-F021 | Mobile Dashboard | TODO | Display key metrics, recent activity, comment count, reply rate | Mobile | Sprint 2 |
+| P0-F022 | Mobile Comment Feed | TODO | Real-time list of comments with AI reply preview, one-tap approve/reject | Mobile | Sprint 2 |
+| P0-F023 | Mobile Push Notifications | TODO | Alert user when comment received, high-value lead detected, AI reply awaiting approval | Mobile | Sprint 2 |
+| P0-F024 | Multi-Tenant Switching (Web) | TODO | Dropdown selector to switch between connected accounts, tenant isolation | Frontend + Backend | Sprint 1 |
+| P0-F025 | Multi-Tenant Switching (Mobile) | TODO | Account selector in mobile app, switch tenants seamlessly | Mobile | Sprint 2 |
+| P0-F026 | Tenant Isolation Verification | TODO | Verify row-level security on all queries, prevent cross-tenant data leakage | Backend | Sprint 1 |
+| P0-F027 | CRM Integration Setup | TODO | Users add HubSpot/Pipedrive/Salesforce credentials, configure field mapping | Frontend + Backend | Sprint 2 |
+| P0-F028 | Auto-Create CRM Contacts | TODO | When comment received, create/update contact in CRM with metadata | Backend | Sprint 2 |
+| P0-F029 | CRM Sync Status | TODO | Dashboard showing last sync time, sync status, failed records | Frontend | Sprint 3 |
+| P0-F030 | Advanced Analytics Dashboard | TODO | Engagement metrics, AI reply stats, CRM conversion funnel, ROI | Frontend + Backend | Sprint 3 |
+| P0-F031 | Mobile Offline Mode | TODO | Cache recent posts, comments, rules; sync when online | Mobile | Sprint 3 |
+| P0-F032 | AI Usage Tracking & Limits | TODO | Track tokens, cost, enforce monthly limit per tenant, show usage stats | Backend + Frontend | Sprint 1 |
+| P0-F033 | Mobile API Optimization | TODO | API responses < 500ms, mobile-specific endpoints, pagination, lazy loading | Backend | Sprint 2 |
+
+### Should Have — P1 (Enhanced Experience)
+
+#### v1.0 P1 Features
+
+| ID | Feature | Status | Description | Assigned To | Sprint |
+|-------|---------|--------|-------------|-------------|--------|
+| P1-F001 | Analytics Dashboard | ✓ DONE | Real-time metrics: engagement, reply rates, DM delivery, conversion tracking | Frontend + Backend | Sprint 4 |
+| P1-F002 | Keyword-Based Smart Replies | TODO | Match comments against multiple keywords to trigger different replies | Frontend + Backend | Sprint 3 |
+| P1-F003 | Enable/Disable Rules Per Post | TODO | Toggle rules on/off without deleting | Frontend + Backend | Sprint 2 |
+| P1-F004 | Comment History & Engagement Metrics | TODO | View all comments per post, reply status, DM status | Frontend + Backend | Sprint 4 |
+| P1-F005 | User Profile & Settings | TODO | Account settings, integrations management, billing placeholder | Frontend | Sprint 4 |
+| P1-F006 | Onboarding Wizard | TODO | 5-step guided setup: register → add API → connect account → create first rule → view dashboard | Frontend + Backend | Sprint 1 |
+| P1-F007 | Rate Limit Monitoring | TODO | Dashboard showing API rate limit usage and remaining quota | Frontend + Backend | Sprint 4 |
+| P1-F008 | Bulk Rule Management | TODO | Edit multiple rules at once, copy rules between posts | Frontend + Backend | Sprint 4 |
+
+#### v2.0 P1 Features
+
+| ID | Feature | Status | Description | Assigned To | Sprint |
+|-------|---------|--------|-------------|-------------|--------|
+| P1-F009 | AI Multi-Provider Support | TODO | Support Claude, Gemini, Groq in addition to OpenAI | Backend | Sprint 2 |
+| P1-F010 | Bulk AI Reply Generation | TODO | Generate replies for 10+ comments at once, batch approval | Frontend + Backend | Sprint 3 |
+| P1-F011 | CRM Conversion Tracking | TODO | Track comment → DM → CRM lead → customer (full funnel) | Frontend + Backend | Sprint 3 |
+| P1-F012 | Mobile Rules Management | TODO | Create/edit rules from mobile app | Mobile | Sprint 3 |
+| P1-F013 | Real-Time Notifications | TODO | WebSocket for instant updates on web, FCM on mobile | Backend | Sprint 2 |
+| P1-F014 | AI Tone/Style Customization | TODO | Save preferred tone/length per rule, per tenant default settings | Frontend + Backend | Sprint 2 |
+| P1-F015 | Mobile Widget (Lock Screen) | TODO | iOS lock screen widgets showing hot comments (iOS 16+) | Mobile | Sprint 4 |
+| P1-F016 | Sentiment Analysis | TODO | Auto-detect negative comments, don't auto-reply to complaints/spam | Backend + Frontend | Sprint 4 |
+| P1-F017 | AI Reply A/B Testing | TODO | Test different tones/styles, show approval rate comparison | Frontend + Backend | Sprint 4 |
+| P1-F018 | CRM Custom Field Mapping | TODO | Map social comment data to custom CRM fields | Frontend + Backend | Sprint 3 |
+| P1-F019 | Mobile Biometric Settings | TODO | Configure which app sections require biometric auth | Mobile | Sprint 3 |
+| P1-F020 | AI Cost Dashboard | TODO | Show monthly spend on AI, cost per reply, cost trends | Frontend | Sprint 3 |
+
+### Could Have — P2 (Nice-to-Have)
+
+#### v1.0 P2 Features
+
+| ID | Feature | Status | Description | Assigned To | Sprint |
+|-------|---------|--------|-------------|-------------|--------|
+| P2-F001 | Dark Mode | TODO | Toggle dark/light theme in UI | Frontend | Sprint 4 |
+| P2-F002 | Export Analytics to CSV | TODO | Download engagement data as CSV | Frontend + Backend | Sprint 4 |
+| P2-F003 | Keyboard Shortcuts | TODO | Power-user shortcuts for navigation | Frontend | Sprint 4 |
+| P2-F004 | Comment Filtering | TODO | Filter comments by date, status, keyword | Frontend | Sprint 4 |
+| P2-F005 | Scheduled DMs | TODO | Queue DMs for scheduled send time | Frontend + Backend | Sprint 4 |
+
+#### v2.0 P2 Features
+
+| ID | Feature | Status | Description | Assigned To | Sprint |
+|-------|---------|--------|-------------|-------------|--------|
+| P2-F006 | Dark Mode (Mobile) | TODO | Toggle dark/light theme across web and mobile | Frontend + Mobile | Sprint 4 |
+| P2-F007 | Mobile App Shortcuts | TODO | Create shortcuts to frequently used rules | Mobile | Sprint 4 |
+| P2-F008 | Export Analytics | TODO | Download analytics report as PDF/CSV | Frontend | Sprint 3 |
+| P2-F009 | AI Reply History | TODO | View all AI-generated replies, compare to manual, learn patterns | Frontend | Sprint 4 |
+| P2-F010 | Advanced Comment Search | TODO | Advanced search by sentiment, keyword, date range | Frontend | Sprint 4 |
+| P2-F011 | Mobile Offline Comments | TODO | View cached comments when offline, send when online | Mobile | Sprint 3 |
+
+### Won't Have — P3 (Deferred to v2.1+)
+
+#### v1.0 P3 Features
+
+| ID | Feature | Status | Description | Reason |
+|-------|---------|--------|-------------|--------|
+| P3-F001 | AI-Generated Replies | DEFERRED | Auto-generate contextual replies using LLM | v2.0 feature |
+| P3-F002 | CRM Integration | DEFERRED | Sync contacts to HubSpot, Salesforce | v2.0 feature |
+| P3-F003 | Multi-User Team Management | DEFERRED | Invite team members, assign roles, permissions | v2.1+ feature |
+| P3-F004 | Advanced Predictive Analytics | DEFERRED | ML models for engagement prediction | v2.1+ feature |
+| P3-F005 | Native Mobile Apps | DEFERRED | iOS/Android native applications | v2.0 feature |
+| P3-F006 | TikTok/YouTube Integration | DEFERRED | Support for TikTok and YouTube | v2.1+ feature |
+| P3-F007 | White-Label Version | DEFERRED | Custom branding for agencies | v3+ feature |
+| P3-F008 | SMS/WhatsApp Messaging | DEFERRED | Send messages beyond Meta platforms | v3+ feature |
+
+#### v2.0 P3 Features
+
+| ID | Feature | Status | Description | Reason |
+|-------|---------|--------|-------------|--------|
+| P3-F009 | Team Collaboration | DEFERRED | Invite team members, assign roles, permissions | v2.1 feature |
+| P3-F010 | Team Performance Analytics | DEFERRED | Track individual team member performance | Requires team management foundation |
+| P3-F011 | Approval Workflows | DEFERRED | Require manager approval before sending reply | v2.1 with team features |
+| P3-F012 | Lead Scoring | DEFERRED | AI-powered lead quality scoring | Requires ML models, v2.1 feature |
+| P3-F013 | Custom Domains | DEFERRED | Custom domain for landing page | Enterprise feature, v2.1 |
+| P3-F014 | Marketplace of Rules | DEFERRED | Share rules with other users | v2.1 feature |
+| P3-F015 | Competitor Monitoring | DEFERRED | Track competitors' posts and comments | v2.1 feature |
+
+---
+
+## 7. FUNCTIONAL REQUIREMENTS
+
+### V1.0 CORE FEATURES
+
+#### P0-F001: User Registration & Authentication
+
+**Description:** Users can create an account with email/password, verify email, and log in to access their tenant dashboard.
+
+**User Story:**
+As a new user, I want to sign up with my email and password so that I can access my own isolated dashboard and manage my social media automation.
+
+**Trigger:** User clicks "Sign Up" on landing page
+
+**Pre-conditions:**
+- User is not logged in
+- Email is not already registered
+- Password meets requirements (8+ chars, 1 uppercase, 1 number, 1 special char)
+
+**Post-conditions:**
+- User account created in database
+- Verification email sent
+- User redirected to email verification page
+
+**Main Flow:**
+1. User navigates to registration page
+2. User enters email, password, confirm password
+3. System validates inputs
+4. System checks if email already exists
+5. System hashes password (bcrypt)
+6. System creates user record in database
+7. System generates verification token
+8. System sends verification email
+9. User clicks link in email
+10. System marks email as verified
+11. User redirected to login page
+12. User logs in with email/password
+13. System generates JWT token
+14. System stores token in secure cookie
+15. User redirected to dashboard
+
+**Alternate Flows:**
+- **AF1 - Duplicate Email:** If email exists, show error "Email already registered"
+- **AF2 - Weak Password:** If password doesn't meet requirements, show inline error
+- **AF3 - Email Verification Timeout:** If link expires (24h), user can request new link
+- **AF4 - Forgot Password:** User clicks "Forgot Password", enters email, receives reset link
+
+**Acceptance Criteria:**
+- [ ] User can register with valid email and password
+- [ ] Password validation enforced (8+ chars, 1 uppercase, 1 number, 1 special char)
+- [ ] Duplicate email rejected with clear error message
+- [ ] Verification email sent within 5 seconds
+- [ ] Email verification link works for 24 hours
+- [ ] JWT token generated on login and stored securely
+- [ ] Password never stored in plain text
+- [ ] User cannot access dashboard until email verified
+- [ ] Forgot password flow works end-to-end
+- [ ] Session timeout after 30 days of inactivity
+
+---
+
+#### P0-F002: Multi-Tenant Isolation
+
+**Description:** Each user's data is completely isolated in the database. No user can access another user's posts, rules, credentials, or logs.
+
+**User Story:**
+As a user, I want my data to be completely private and isolated so that I can trust the platform with my sensitive information and API credentials.
+
+**Trigger:** User logs in, accesses any resource
+
+**Pre-conditions:**
+- User is authenticated with valid JWT token
+- User has a tenant ID assigned
+
+**Post-conditions:**
+- All database queries filtered by tenant_id
+- No cross-tenant data leakage
+- Audit logs capture all data access
+
+**Main Flow:**
+1. User authenticates and receives JWT with tenant_id
+2. On every API request, backend verifies tenant_id
+3. All database queries include WHERE tenant_id = :tenant_id
+4. User can only access their own posts, rules, logs, credentials
+5. User cannot query other tenant's data
+6. API returns 403 Forbidden if tenant_id mismatch detected
+
+**Alternate Flows:**
+- **AF1 - Token Tampering:** If JWT is modified, signature validation fails, request rejected
+- **AF2 - URL Manipulation:** If user tries to access /posts/:post_id from different tenant, system returns 403
+- **AF3 - Admin Escalation:** If user tries to access admin routes, system returns 403
+
+**Acceptance Criteria:**
+- [ ] Every database table has tenant_id column
+- [ ] Every API endpoint validates tenant_id from JWT
+- [ ] Query WHERE tenant_id filters applied on all reads
+- [ ] Cross-tenant access attempt returns 403 Forbidden
+- [ ] No tenant can see other tenant's posts, rules, or logs
+- [ ] No tenant can modify other tenant's data
+- [ ] Audit log captures user ID, tenant ID, action, timestamp
+- [ ] Database indexes on (tenant_id, resource_id) for performance
+
+---
+
+#### P0-F003: Meta API Credential Management
+
+**Description:** Users securely input and store their Meta API credentials. Credentials are encrypted at rest and never exposed in logs or API responses.
+
+**User Story:**
+As a user, I want to securely store my Meta API credentials so that the system can access my Facebook and Instagram accounts on my behalf without exposing my credentials.
+
+**Trigger:** User navigates to Settings → Integrations → Add Meta API
+
+**Pre-conditions:**
+- User is authenticated
+- User has Meta Business account with API access
+- User has generated API tokens/credentials
+
+**Post-conditions:**
+- Credentials encrypted and stored in database
+- Credentials tested with valid API call
+- Success message displayed
+
+**Main Flow:**
+1. User navigates to API Credentials page
+2. User clicks "Add Meta API Credentials"
+3. User enters:
+   - Meta App ID
+   - Meta App Secret
+   - User Access Token (or generates via OAuth)
+   - Refresh Token (if available)
+4. System validates inputs (non-empty, proper format)
+5. System makes test API call to verify credentials work
+6. If test fails, show error "Invalid credentials"
+7. If test passes, encrypt credentials using AES-256
+8. Store encrypted credentials in database with tenant_id
+9. Display success message
+10. Show "Connected" status with masked token preview (last 4 chars only)
+
+**Alternate Flows:**
+- **AF1 - Invalid Credentials:** Test API call fails, user sees "Unable to authenticate with Meta. Please check your credentials."
+- **AF2 - Expired Token:** User can refresh token if refresh_token is stored
+- **AF3 - API Rate Limit:** If user hits rate limit, show message with retry time
+- **AF4 - Network Error:** If network fails during test, retry 3 times, then show error
+
+**Acceptance Criteria:**
+- [ ] Credentials input form visible only to authenticated users
+- [ ] All credential inputs validated before submission
+- [ ] Test API call made before storing credentials
+- [ ] Credentials encrypted with AES-256 before storage
+- [ ] Credentials never logged in plain text
+- [ ] API response never exposes full credentials (only masked preview)
+- [ ] Credentials can be updated/rotated
+- [ ] Old credentials can be deleted
+- [ ] Credential expiration tracked and alerted
+- [ ] Audit log records credential changes (not the actual credential)
+
+---
+
+#### P0-F004: Meta OAuth Integration
+
+**Description:** Users can authenticate with Facebook/Instagram via official Meta OAuth flow to auto-populate their access tokens.
+
+**User Story:**
+As a user, I want to connect my Facebook and Instagram accounts via OAuth so that I don't have to manually copy/paste API credentials.
+
+**Trigger:** User clicks "Connect with Facebook" or "Connect with Instagram"
+
+**Pre-conditions:**
+- User is authenticated on SAFD
+- Meta App is registered with proper OAuth redirect URI
+- User has Meta Business account
+
+**Post-conditions:**
+- User redirected to Meta OAuth consent screen
+- After approval, access token stored securely
+- User redirected back to SAFD dashboard
+
+**Main Flow:**
+1. User clicks "Connect Facebook" on API Credentials page
+2. System generates OAuth state token (CSRF protection)
+3. User redirected to Meta OAuth URL:
+   `https://www.facebook.com/v18.0/dialog/oauth?client_id=...&redirect_uri=...&state=...&scope=pages_manage_engagement,pages_manage_metadata,instagram_manage_comments,pages_messaging`
+4. User logs in to Meta (if not already)
+5. User consents to requested permissions
+6. Meta redirects back to SAFD: `/auth/meta/callback?code=...&state=...`
+7. System validates state token (CSRF check)
+8. System exchanges code for access_token via backend (not frontend)
+9. System stores access_token and refresh_token securely
+10. System fetches user's pages and Instagram accounts
+11. User redirected to dashboard with success message
+12. List of connected pages/accounts displayed
+
+**Alternate Flows:**
+- **AF1 - User Denies Permission:** Meta redirects with error, system shows "Permission denied. Please try again."
+- **AF2 - State Token Mismatch:** CSRF attack detected, request rejected
+- **AF3 - OAuth Code Expires:** If code is older than 10 minutes, show error to retry
+- **AF4 - No Pages/Accounts Found:** If user has no connected pages, show helpful message with links to Meta setup
+
+**Acceptance Criteria:**
+- [ ] OAuth state token generated and validated (CSRF protection)
+- [ ] Code exchanged for token on backend (never frontend)
+- [ ] Access token stored securely (encrypted)
+- [ ] Refresh token stored (if provided by Meta)
+- [ ] User pages and Instagram accounts fetched and displayed
+- [ ] User can select which pages/accounts to manage
+- [ ] Token refresh flow implemented (auto-refresh 1 day before expiry)
+- [ ] Expired token handled gracefully (re-authenticate prompt)
+- [ ] OAuth error messages clear and actionable
+
+---
+
+#### P0-F005: Fetch Posts & Reels
+
+**Description:** System automatically syncs all Facebook posts and Instagram posts/reels from user's connected accounts every hour.
+
+**User Story:**
+As a user, I want to see all my Facebook posts and Instagram posts/reels in one dashboard so that I can configure automation rules for each piece of content.
+
+**Trigger:** User connects Meta account, or scheduled sync job runs hourly
+
+**Pre-conditions:**
+- User has valid Meta API credentials stored
+- User has connected at least one Facebook page or Instagram account
+- Meta API is accessible
+
+**Post-conditions:**
+- All posts and reels synced to database
+- Last sync timestamp updated
+- User notified if sync fails
+
+**Main Flow:**
+1. System checks if user has valid Meta credentials
+2. System calls Meta Graph API: `GET /{page-id}/posts?fields=id,message,created_time,engagement,permalink`
+3. System calls Meta Graph API: `GET /{ig-user-id}/media?fields=id,caption,media_type,timestamp,engagement_metric`
+4. System loops through returned posts/reels
+5. For each post/reel:
+   - Check if already exists in database (by platform_post_id)
+   - If new, create record with: user_id, platform, platform_post_id, caption, image_url, created_at, engagement_count
+   - If exists, update engagement_count and last_synced_at
+6. System stores all posts in database with tenant_id
+7. System updates last_sync_timestamp
+8. System returns success response
+9. Frontend updates Posts list with new data
+10. If sync fails, log error and notify user
+
+**Alternate Flows:**
+- **AF1 - API Rate Limit:** If rate limit hit, queue job for retry in 1 hour
+- **AF2 - Expired Token:** If token expired, show notification "Please reconnect your Meta account"
+- **AF3 - No Posts Found:** If user has no posts, show empty state "No posts yet"
+- **AF4 - Partial Sync Failure:** If some accounts sync but others fail, show warning with list of failed accounts
+
+**Acceptance Criteria:**
+- [ ] Facebook posts fetched via Graph API
+- [ ] Instagram posts and reels fetched via Graph API
+- [ ] Posts stored with correct tenant_id (no cross-tenant leakage)
+- [ ] Engagement metrics captured (comment count, like count, share count)
+- [ ] Duplicate posts not created on re-sync
+- [ ] Last sync timestamp tracked
+- [ ] Sync errors logged and alerted
+- [ ] Sync runs automatically every 60 minutes
+- [ ] Manual sync trigger available from UI
+- [ ] Post image/media URLs cached for fast loading
+
+---
+
+#### P0-F006: Dashboard Landing View
+
+**Description:** Display all user's posts and reels in a paginated, searchable, filterable list on the main dashboard.
+
+**User Story:**
+As a user, I want to see all my posts and reels on a clean dashboard so that I can quickly find the content I want to set automation rules for.
+
+**Trigger:** User logs in, clicks "Dashboard"
+
+**Pre-conditions:**
+- User is authenticated
+- User has at least one post or reel synced
+
+**Post-conditions:**
+- Posts and reels displayed in list/card format
+- User can search, filter, and sort
+- Engagement metrics visible at a glance
+
+**Main Flow:**
+1. User navigates to Dashboard
+2. System fetches all posts/reels for user's tenant_id
+3. System displays posts in card layout:
+   - Post thumbnail/image
+   - Caption (truncated)
+   - Platform (Facebook/Instagram icon)
+   - Post date
+   - Engagement metrics (comments, likes, shares)
+   - Automation status (enabled/disabled, number of rules)
+   - "Configure Rules" button
+4. Pagination: 12 posts per page, load next page on scroll or click
+5. Search box filters by caption or post ID
+6. Filter buttons: Platform (All/Facebook/Instagram), Date range, Automation status
+7. Sort options: Newest, Most Engaged, Least Engaged, Most Comments
+8. User clicks on post to see details and configure rules
+9. Loading state shown while fetching
+10. Error state shown if sync fails
+
+**Alternate Flows:**
+- **AF1 - No Posts:** Show empty state with "Sync your first post" message and link to API setup
+- **AF2 - Search No Results:** Show "No posts match your search" and clear filters button
+- **AF3 - Network Error:** Show retry button, cache last known posts
+
+**Acceptance Criteria:**
+- [ ] Posts loaded and displayed within 2 seconds
+- [ ] Pagination works smoothly
+- [ ] Search filters results in < 500ms
+- [ ] Platform filter toggles correctly
+- [ ] Date range filter functional
+- [ ] Sort options change order correctly
+- [ ] Post thumbnails load with lazy loading
+- [ ] Engagement metrics accurate and up-to-date
+- [ ] Automation status badge shows rule count
+- [ ] Mobile responsive (stacks on small screens)
+- [ ] Empty state helpful and actionable
+
+---
+
+#### P0-F007: Per-Post Automation Rules
+
+**Description:** User can create unlimited keyword-based automation rules for each specific post. When comments matching the keywords arrive, system auto-replies and sends DM.
+
+**User Story:**
+As a user, I want to set up different automation rules for different posts so that I can customize replies based on post topic and engage followers appropriately.
+
+**Trigger:** User clicks "Configure Rules" on a post
+
+**Pre-conditions:**
+- User is authenticated
+- Post exists in database
+- User owns the post
+
+**Post-conditions:**
+- Rule created and saved
+- Rule active immediately
+- Incoming comments will trigger rule
+
+**Main Flow:**
+1. User clicks "Configure Rules" on a post card
+2. Modal/page opens showing existing rules for this post
+3. User clicks "Add New Rule"
+4. Form appears with fields:
+   - **Rule Name** (optional, e.g., "Question about price")
+   - **Keywords** (comma-separated, e.g., "price, cost, how much")
+   - **Match Type** (Any keyword / All keywords / Exact phrase)
+   - **Reply Message** (text area, max 500 chars for Instagram, 5000 for Facebook)
+   - **Send DM?** (toggle, yes/no)
+   - **DM Message** (text area if DM enabled, max 4000 chars)
+   - **Enabled** (toggle, default on)
+5. User fills in fields and clicks "Save Rule"
+6. System validates:
+   - Keywords not empty
+   - Reply message not empty
+   - DM message not empty if DM enabled
+7. System creates rule record with:
+   - post_id, tenant_id, keywords, reply_message, dm_message, is_active, created_at
+8. System returns success message "Rule saved"
+9. Rule appears in list of rules for this post
+10. Rule is immediately active and will trigger on matching comments
+
+**Alternate Flows:**
+- **AF1 - Duplicate Keywords:** Warning "This keyword matches another rule on this post"
+- **AF2 - Validation Error:** Show inline errors (e.g., "Reply message required")
+- **AF3 - Edit Existing Rule:** User clicks edit icon, form pre-fills, user saves changes
+- **AF4 - Delete Rule:** User clicks delete, confirmation modal appears, rule deleted
+
+**Acceptance Criteria:**
+- [ ] Rule creation form displays all required fields
+- [ ] Keywords validation (non-empty)
+- [ ] Reply message validation (non-empty, < 5000 chars)
+- [ ] DM message validation (non-empty if DM enabled, < 4000 chars)
+- [ ] Rule saved to database with tenant_id
+- [ ] Rule immediately active after save
+- [ ] User can view list of rules for each post
+- [ ] User can edit existing rules
+- [ ] User can delete rules with confirmation
+- [ ] User can enable/disable rules without deleting
+- [ ] Keyword matching case-insensitive
+- [ ] Multiple keywords work with AND/OR logic
+- [ ] Unlimited rules per post (no artificial limit)
+
+---
+
+#### P0-F008: Global Automation Rules
+
+**Description:** User can create rules that apply to ALL posts and reels. These rules act as a fallback if no post-specific rule matches.
+
+**User Story:**
+As a user, I want to set global rules that apply to all my posts so that I can have default automation behavior without configuring rules for each post individually.
+
+**Trigger:** User clicks "Settings" → "Global Rules"
+
+**Pre-conditions:**
+- User is authenticated
+- User has at least one post
+
+**Post-conditions:**
+- Global rule created and applied to all posts
+- Incoming comments checked against global rules if no post-specific rule matches
+
+**Main Flow:**
+1. User navigates to Settings → Global Rules
+2. List of existing global rules displayed
+3. User clicks "Add Global Rule"
+4. Form appears with same fields as per-post rules:
+   - Rule Name
+   - Keywords
+   - Match Type
+   - Reply Message
+   - Send DM? + DM Message
+   - Enabled toggle
+5. User fills form and clicks "Save"
+6. System validates same as per-post rules
+7. Rule created with post_id = NULL (indicates global rule)
+8. Rule immediately active for all posts
+9. System updates rule execution priority
+
+**Alternate Flows:**
+- **AF1 - Override:** If comment matches both global and post-specific rule, post-specific rule takes priority
+- **AF2 - Disable Global:** User can toggle global rules on/off
+- **AF3 - Manage Multiple Globals:** User can create multiple global rules with different keywords
+
+**Acceptance Criteria:**
+- [ ] Global rule creation form displays correctly
+- [ ] Global rules stored with post_id = NULL
+- [ ] Global rules apply to all posts automatically
+- [ ] Post-specific rules take priority over global
+- [ ] Global rules can be enabled/disabled
+- [ ] Global rules can be edited and deleted
+- [ ] Unlimited global rules (no artificial limit)
+- [ ] Rule priority clear and documented
+
+---
+
+#### P0-F009: Comment Webhook Receiver
+
+**Description:** System receives real-time comment notifications from Meta via webhook, parses comment data, and triggers rule matching.
+
+**User Story:**
+As a user, I want the system to automatically detect new comments on my posts so that automation rules can be triggered instantly without delay.
+
+**Trigger:** Meta sends webhook notification (comment received)
+
+**Pre-conditions:**
+- Webhook endpoint registered with Meta
+- User has subscribed to comment.create webhook events
+- Meta has verified webhook endpoint
+
+**Post-conditions:**
+- Comment stored in database
+- Rule matching initiated
+- Auto-reply and DM sent within 2 seconds
+
+**Main Flow:**
+1. User creates post on Facebook/Instagram
+2. Someone comments on post
+3. Meta detects comment and sends POST request to webhook endpoint
+4. Webhook payload received by system:
+```json
+{
+  "entry": [{
+    "changes": [{
+      "field": "comments",
+      "value": {
+        "item": "comment",
+        "comment_id": "123456",
+        "post_id": "789",
+        "user_id": "456",
+        "message": "Great product! How much does it cost?",
+        "created_time": "2026-05-01T12:34:56Z"
+      }
+    }]
+  }],
+  "object": "page"
+}
+```
+5. System validates webhook signature (X-Hub-Signature)
+6. System extracts comment data:
+   - post_id, comment_id, user_id, message, created_time
+7. System creates comment record in database:
+   - INSERT INTO comments (post_id, comment_id, user_id, message, platform, created_at, tenant_id)
+8. System immediately pushes job to queue:
+   - queue.add('process_comment', { comment_id, post_id, user_id, message })
+9. Return 200 OK to Meta immediately (webhook ack)
+10. Worker picks up job asynchronously and processes rule matching
+11. If rule matches, auto-reply and DM jobs queued
+
+**Alternate Flows:**
+- **AF1 - Invalid Signature:** Webhook rejected, 401 Unauthorized, logged as suspicious
+- **AF2 - Duplicate Comment:** If comment_id already exists, skip processing
+- **AF3 - User Not Found:** If comment's user_id cannot be resolved, log error, retry later
+- **AF4 - Malformed Payload:** Webhook payload missing required fields, return 400 Bad Request
+
+**Acceptance Criteria:**
+- [ ] Webhook endpoint listening on POST /webhook/meta
+- [ ] Webhook signature validation (X-Hub-Signature with app secret)
+- [ ] Comment data extracted and stored in database
+- [ ] Comment stored with correct tenant_id
+- [ ] 200 OK response sent immediately (< 100ms)
+- [ ] Job pushed to queue for async processing
+- [ ] Webhook handles 1000+ comments/hour without queueing
+- [ ] Invalid webhooks rejected with proper HTTP status
+- [ ] Webhook logs all received events (for debugging)
+- [ ] Retry logic for failed webhook acks
+
+---
+
+#### P0-F010: Rule Matching Engine
+
+**Description:** System evaluates incoming comments against user's rules (post-specific and global) to determine if automation should be triggered.
+
+**User Story:**
+As a user, I want the system to intelligently match my comments against my rules so that only relevant replies are sent and I maintain engagement quality.
+
+**Trigger:** Comment received via webhook, queued for processing
+
+**Pre-conditions:**
+- Comment stored in database
+- Rule(s) exist for the post
+- Rule is enabled
+
+**Post-conditions:**
+- Matching rule identified
+- Auto-reply job queued
+- Auto-DM job queued (if enabled)
+
+**Main Flow:**
+1. Worker retrieves comment from queue
+2. System queries rules for post_id:
+   - SELECT * FROM automation_rules WHERE post_id = :post_id AND is_active = true
+   - Also: SELECT * FROM automation_rules WHERE post_id IS NULL AND is_active = true (global rules)
+3. For each rule (post-specific first, then global):
+   - Extract keywords from rule
+   - Apply match type (Any / All / Exact):
+     - **Any:** Comment contains ANY keyword → match
+     - **All:** Comment contains ALL keywords → match
+     - **Exact:** Comment is exact phrase → match
+   - Perform case-insensitive comparison
+   - If match found:
+     - Return matching rule (post-specific takes priority)
+     - Stop checking further rules (first match wins)
+4. If rule matched:
+   - Queue job: 'send_comment_reply' with (comment_id, reply_message)
+   - If DM enabled: Queue job: 'send_dm' with (user_id, dm_message)
+   - Log: "Rule matched: rule_id=123, comment_id=456, action=reply+dm"
+5. If no rule matched:
+   - Log: "No rule matched for comment_id=456"
+   - Comment remains unresponded (awaiting manual review or global rule)
+
+**Alternate Flows:**
+- **AF1 - Multiple Global Rules:** If no post-specific rule matches, evaluate global rules in priority order
+- **AF2 - Disabled Rule:** If rule is disabled, skip it
+- **AF3 - Empty Comment:** If comment is empty or too short, skip matching
+
+**Acceptance Criteria:**
+- [ ] Keyword matching case-insensitive
+- [ ] Any/All/Exact match types work correctly
+- [ ] Post-specific rules take priority over global
+- [ ] Only enabled rules evaluated
+- [ ] Matching happens within 500ms
+- [ ] Matched rule logged with timestamp
+- [ ] Non-matching comments logged
+- [ ] Rule matching idempotent (same comment, same rule, same result)
+- [ ] Performance optimized for 100+ rules per post
+
+---
+
+#### P0-F011: Auto-Reply to Comments
+
+**Description:** System automatically posts a reply comment to the original comment within 2 seconds of rule matching.
+
+**User Story:**
+As a user, I want the system to automatically reply to comments matching my rules so that followers get instant responses and engagement stays high.
+
+**Trigger:** Rule matched, 'send_comment_reply' job queued
+
+**Pre-conditions:**
+- Comment exists in database
+- Matching rule found with reply_message
+- User has valid Meta API credentials
+- Meta API is accessible
+
+**Post-conditions:**
+- Reply comment posted to Meta
+- Reply status logged as "SUCCESS"
+- Comment marked as "replied"
+
+**Main Flow:**
+1. Worker picks up 'send_comment_reply' job from queue
+2. System retrieves:
+   - comment_id, user_id, post_id
+   - reply_message from matched rule
+   - access_token from credentials (decrypted)
+3. System calls Meta Graph API:
+POST /{comment_id}/comments
+data: {
+message: reply_message,
+access_token: access_token
+}
+4. Meta returns response:
+```json
+   {
+     "id": "new_comment_id_789",
+     "created_time": "2026-05-01T12:34:57Z"
+   }
+```
+5. System stores reply in database:
+   - INSERT INTO replies (comment_id, reply_comment_id, reply_message, status, created_at, tenant_id)
+   - INSERT INTO activity_logs (user_id, action, post_id, comment_id, status, timestamp, tenant_id)
+6. System updates comment record:
+   - UPDATE comments SET replied_at = NOW(), reply_status = 'SUCCESS' WHERE comment_id = :comment_id
+7. System returns success
+8. Timestamp of reply: T12:34:57 (within 2 seconds of comment receipt)
+
+**Alternate Flows:**
+- **AF1 - API Error (429):** Rate limit hit, exponential backoff, retry in 5 minutes
+- **AF2 - API Error (400):** Invalid message format, log error, skip (don't retry)
+- **AF3 - API Error (401):** Token expired, log error, notify user "Please reconnect Meta account"
+- **AF4 - Network Error:** Temporary network failure, retry 3 times with exponential backoff
+- **AF5 - Comment Deleted:** If original comment deleted by user, Meta returns error, log it
+
+**Acceptance Criteria:**
+- [ ] Reply posted within 2 seconds of rule match
+- [ ] Reply message exactly as configured by user
+- [ ] Reply status logged (SUCCESS / FAILED / RETRY)
+- [ ] Failed replies logged with error reason
+- [ ] Exponential backoff for retries (1s, 2s, 4s, 8s, max 60s)
+- [ ] Max 3 retries before giving up
+- [ ] Reply URL stored for user reference
+- [ ] Activity log records reply action
+- [ ] Handles API rate limits gracefully
+- [ ] Handles token expiration gracefully
+
+---
+
+#### P0-F012: Auto-DM to Commenters
+
+**Description:** System automatically sends a direct message to users who comment, within Meta's compliance rules (24-hour window on Facebook, anytime on Instagram).
+
+**User Story:**
+As a user, I want the system to automatically send DMs to users who comment so that I can nurture relationships and drive conversions without manual effort.
+
+**Trigger:** Rule matched with DM enabled, 'send_dm' job queued
+
+**Pre-conditions:**
+- Commenter user_id retrieved from comment
+- Matching rule found with dm_message
+- User has valid Meta API credentials
+- Meta API is accessible
+- Platform rules allow DM (Instagram = anytime, Facebook = 24h window)
+
+**Post-conditions:**
+- DM sent to user
+- DM status logged as "SUCCESS" or "BLOCKED"
+- Activity logged
+
+**Main Flow:**
+1. Worker picks up 'send_dm' job from queue
+2. System retrieves:
+   - user_id (commenter)
+   - post_id, comment_id
+   - dm_message from matched rule
+   - access_token
+   - platform (Facebook / Instagram)
+3. System checks platform messaging rules:
+   - **Instagram:** DM allowed anytime
+   - **Facebook:** DM allowed if within 24-hour messaging window OR user initiated conversation first
+4. If Facebook, check if user already messaged within 24h:
+   - SELECT * FROM dm_messages WHERE to_user_id = :user_id AND created_at > NOW() - INTERVAL 24 HOUR AND platform = 'FACEBOOK'
+   - If exists, within window → proceed
+   - If not exists, outside window → check if user initiated:
+     - If user initiated → proceed
+     - If user didn't initiate → SKIP (log as "BLOCKED: Outside 24h window")
+5. Call Meta Graph API (Instagram DM):
+POST /v18.0/{user_id}/messages
+data: {
+message: dm_message,
+access_token: access_token
+}
+   OR Facebook DM:
+POST /v18.0/me/messages
+data: {
+recipient: { id: user_id },
+message: { text: dm_message },
+access_token: access_token
+}
+6. Meta returns:
+```json
+   {
+     "recipient_id": "user_id_456",
+     "message_id": "mid_789"
+   }
+```
+7. System stores DM in database:
+   - INSERT INTO dm_messages (to_user_id, dm_message, platform, message_id, status, comment_id, post_id, created_at, tenant_id)
+8. System updates comment:
+   - UPDATE comments SET dm_sent_at = NOW() WHERE comment_id = :comment_id
+9. System logs activity
+
+**Alternate Flows:**
+- **AF1 - User Blocked/Disabled Messages:** Meta returns error "User has disabled messages", status = "BLOCKED"
+- **AF2 - Outside 24h Window:** Facebook DM, user didn't initiate, DM not sent, status = "SKIPPED"
+- **AF3 - API Rate Limit:** 429 error, retry with exponential backoff
+- **AF4 - Invalid User ID:** If user_id is invalid, Meta returns error, log it
+- **AF5 - Account Restricted:** If account flagged by Meta, show user notification
+
+**Acceptance Criteria:**
+- [ ] Instagram DM sent immediately (no 24h restriction)
+- [ ] Facebook DM respects 24-hour messaging window
+- [ ] DM not sent if outside window and user didn't initiate (for Facebook)
+- [ ] DM status logged (SUCCESS / BLOCKED / SKIPPED / FAILED)
+- [ ] Blocked/skipped DMs logged clearly (reason documented)
+- [ ] Exponential backoff for retries
+- [ ] Activity log records DM action
+- [ ] Message delivery status tracked
+- [ ] User notified if account flagged by Meta
+- [ ] Handles token expiration gracefully
+
+---
+
+#### P0-F013: Activity & Logs Dashboard
+
+**Description:** Real-time feed showing all comments received, replies sent, DMs sent, errors, retries, with timestamp, status, and action details.
+
+**User Story:**
+As a user, I want to see a live log of all activities so that I can track what automation is happening and debug any issues.
+
+**Trigger:** User navigates to "Activity" or "Logs" section
+
+**Pre-conditions:**
+- User is authenticated
+- User has at least one comment received
+
+**Post-conditions:**
+- Activity feed displayed with real-time updates
+- User can search, filter, and export logs
+
+**Main Flow:**
+1. User navigates to Activity dashboard
+2. System fetches all activity logs for user's tenant_id:
+   - SELECT * FROM activity_logs WHERE tenant_id = :tenant_id ORDER BY created_at DESC LIMIT 100
+3. System fetches related data (comments, posts, etc.)
+4. Display activity feed with columns:
+   - **Timestamp:** When action occurred
+   - **Post:** Post title/thumbnail
+   - **Comment:** Comment text (truncated)
+   - **Commenter:** User who commented
+   - **Rule Matched:** Which rule was triggered (e.g., "Price Inquiry")
+   - **Action:** What happened (Comment Reply / DM Sent / Failed / Skipped)
+   - **Status:** SUCCESS / FAILED / SKIPPED / BLOCKED / PENDING
+   - **Error Message:** If failed, show reason
+5. UI displays as table or timeline, sortable by all columns
+6. Real-time updates: New activities appear at top of feed via WebSocket or polling
+7. Pagination: 50 logs per page
+8. Filters available:
+   - Post
+   - Action type (Comment Reply / DM / Both)
+   - Status (Success / Failed / Blocked)
+   - Date range
+9. Search box filters by comment text, post, or rule name
+10. Export button: Download logs as CSV
+
+**Alternate Flows:**
+- **AF1 - No Logs:** Show empty state "No activity yet"
+- **AF2 - Real-time Updates:** Use WebSocket for live updates (optional fallback: polling every 5s)
+- **AF3 - Long Delays:** If activity feed takes > 2s to load, show loading spinner
+
+**Acceptance Criteria:**
+- [ ] Activity logs displayed in reverse chronological order
+- [ ] All required columns visible (timestamp, post, comment, action, status)
+- [ ] Pagination works for 100+ logs
+- [ ] Search filters results in < 500ms
+- [ ] Filters work independently and combined
+- [ ] Real-time updates (WebSocket or polling) work
+- [ ] Export to CSV includes all columns
+- [ ] Error messages clear and actionable
+- [ ] Mobile responsive layout
+- [ ] Logs retained for 90 days (archival after)
+- [ ] Performance: < 2s load time for latest 100 logs
+
+---
+
+#### P0-F014: Error Handling & Retry Logic
+
+**Description:** System gracefully handles API errors, network failures, rate limits, and expired tokens with exponential backoff retry strategy and clear error logging.
+
+**User Story:**
+As a user, I want the system to be resilient to failures so that temporary issues don't break automation and I'm notified clearly when action is needed.
+
+**Trigger:** Any API call fails, network error occurs, or rate limit hit
+
+**Pre-conditions:**
+- Job in queue encounters error
+- System has retry strategy configured
+
+**Post-conditions:**
+- Job retried with exponential backoff
+- Error logged with timestamp and reason
+- User notified if manual action needed
+
+**Main Flow:**
+1. Worker executes job (send_comment_reply, send_dm, fetch_posts, etc.)
+2. API call fails with error:
+Error: 429 Too Many Requests
+3. System checks error type:
+   - **429 (Rate Limit):** Retry with backoff
+   - **401 (Unauthorized):** Log error, notify user, don't retry
+   - **400 (Bad Request):** Log error, don't retry
+   - **5xx (Server Error):** Retry with backoff
+   - **Network Error:** Retry with backoff
+4. If retriable error:
+   - Calculate retry delay: 2^attempt_count (1s, 2s, 4s, 8s, 16s, 32s, 60s max)
+   - Increment retry_count
+   - If retry_count < 3: Re-queue job with delay
+   - If retry_count >= 3: Mark as FAILED, log error, notify user
+5. Log entry created:
+   - INSERT INTO error_logs (job_id, error_type, error_message, retry_count, next_retry_at, tenant_id)
+6. User notified via dashboard:
+   - If 3+ retries failed: Banner "DM to @user_123 failed after 3 retries. Check connection."
+7. Retry logic applied across all operations:
+   - Fetching posts
+   - Sending replies
+   - Sending DMs
+   - Authenticating with Meta
+
+**Alternate Flows:**
+- **AF1 - Partial Success:** If 1 out of 5 DMs fail, others succeed, only failed DM retried
+- **AF2 - Circuit Breaker:** If 50%+ of jobs fail in last hour, halt new jobs, alert user
+- **AF3 - Manual Retry:** User can manually retry failed job from dashboard
+
+**Acceptance Criteria:**
+- [ ] Exponential backoff implemented (1s, 2s, 4s, 8s, 16s, 32s, 60s)
+- [ ] Max 3 retries before giving up
+- [ ] Error type identified and appropriate action taken
+- [ ] Retriable vs non-retriable errors distinguished
+- [ ] Errors logged with full context (job_id, error, timestamp, tenant_id)
+- [ ] User notified of permanent failures (401, etc.)
+- [ ] User notified after max retries exceeded
+- [ ] Retry history visible in logs
+- [ ] Manual retry option available
+- [ ] Dead letter queue for unprocessable jobs
+- [ ] Alerts triggered for high error rates
+
+---
+
+#### P0-F015: Queue-Based Processing
+
+**Description:** All async jobs (comment replies, DMs, syncs) queued in Redis using BullMQ for reliable, rate-limited processing without blocking API requests.
+
+**User Story:**
+As a user, I want the system to process comments and send replies reliably without hitting Meta's rate limits, so automation runs smoothly 24/7.
+
+**Trigger:** Comment received, API rate limit approached, job queued
+
+**Pre-conditions:**
+- Redis running and accessible
+- BullMQ installed and configured
+- Queue workers running
+
+**Post-conditions:**
+- Job added to queue
+- Worker picks up job and processes
+- Job completed or retried
+
+**Main Flow:**
+1. Comment webhook received → system queues job immediately:
+```javascript
+   await commentQueue.add('process_comment', {
+     comment_id: '123',
+     post_id: '456',
+     user_id: '789',
+     message: 'Great product!'
+   }, { priority: 1, attempts: 3, backoff: { type: 'exponential', delay: 1000 } });
+```
+2. Return 200 OK to Meta within 100ms (non-blocking)
+3. Worker processes job:
+   - Retrieve job from queue
+   - Match comment against rules
+   - If matched, queue 'send_comment_reply' and 'send_dm' jobs
+4. Jobs can be queued with:
+   - **Priority:** High priority jobs (critical replies) processed first
+   - **Delay:** Scheduled for later execution
+   - **Attempts:** Max retry count
+   - **Backoff:** Exponential backoff on failure
+5. Worker configuration:
+   - Multiple workers (concurrency = 5) to handle 100+ comments/hour
+   - Rate limiting: 10 API calls/second max (enforced by queue)
+   - Memory efficient: Jobs removed from Redis after completion
+6. Monitoring:
+   - Queue depth visible in dashboard
+   - Worker status (idle/busy) tracked
+   - Job completion rate monitored
+7. Job lifecycle:
+   - `waiting` → `active` → `completed` / `failed`
+   - Failed jobs: `failed` → `wait` (if retry configured) → `active` again
+
+**Alternate Flows:**
+- **AF1 - Queue Full:** If queue has 1000+ pending jobs, new webhook returns 429 (graceful degradation)
+- **AF2 - Worker Crash:** Job in progress marked as failed, goes back to queue, another worker picks it up
+- **AF3 - Redis Unavailable:** Queue operations fail, webhook returns 500, retry logic kicks in
+
+**Acceptance Criteria:**
+- [ ] Redis queue operational and monitored
+- [ ] Jobs queued with priority, delay, backoff configured
+- [ ] Worker concurrency: 5 (process 5 jobs simultaneously)
+- [ ] Rate limiting: < 10 API calls/second
+- [ ] Job completion logged
+- [ ] Failed jobs retried with exponential backoff
+- [ ] Queue depth visible in admin panel
+- [ ] Worker logs available for debugging
+- [ ] Dead letter queue for unprocessable jobs
+- [ ] Job TTL: 7 days (jobs expire if not processed)
+- [ ] Performance: Process 100+ comments/hour without congestion
+
+---
+
+### V2.0 NEW FEATURES
+
+#### P0-F016: AI Reply Generation (OpenAI)
+
+**Description:** System generates contextual replies using OpenAI API based on comment content and rule settings, delivering responses within 2 seconds.
+
+**User Story:**
+As a user, I want the system to automatically generate reply suggestions using AI so that I don't have to manually write replies for every comment.
+
+**Trigger:** User enables "AI Reply" on a rule, comment received matching rule
+
+**Pre-conditions:**
+- User has added OpenAI API key
+- Rule has "AI Reply" enabled
+- Comment matches rule keywords
+- User has available API quota
+
+**Post-conditions:**
+- AI-generated reply created
+- Reply shown in approval queue or auto-sent
+- Token usage tracked and cost calculated
+
+**Main Flow:**
+1. User creates/edits rule and toggles "Use AI-Generated Reply"
+2. User configures AI settings:
+   - Tone: Professional / Casual / Friendly / Formal / Salesy
+   - Length: Short (1-2 lines) / Medium (3-5 lines) / Long (5+ lines)
+   - Language: Auto-detect / English / Arabic / Spanish / French
+   - Brand context: (optional) "E-commerce store, monthly subscription $29"
+   - Approval required: ON/OFF toggle
+3. Rule saved with AI settings
+4. Comment received: "How much does this cost?"
+5. Rule matching engine identifies match
+6. System checks AI quota for user:
+   - SELECT SUM(tokens_used) FROM ai_replies WHERE tenant_id = :tenant_id AND MONTH(created_at) = MONTH(NOW())
+   - If usage >= monthly_limit, skip AI, fall back to manual reply
+7. System calls OpenAI API:
+POST https://api.openai.com/v1/chat/completions
+{
+"model": "gpt-4",
+"messages": [{
+"role": "system",
+"content": "You are a helpful social media manager..."
+}, {
+"role": "user",
+"content": "Generate a [tone] and [length] reply to this comment: 'How much does this cost?' Context: E-commerce store, $29/month subscription. Keep it under 500 characters."
+}],
+"max_tokens": 150,
+"temperature": 0.7
+}
+8. OpenAI returns:
+```json
+   {
+     "choices": [{
+       "message": {
+         "content": "Great question! Our product costs $29/month with unlimited features and no hidden fees. Would love to help you get started!"
+       }
+     }],
+     "usage": {
+       "completion_tokens": 35,
+       "prompt_tokens": 95,
+       "total_tokens": 130
+     }
+   }
+```
+9. System stores AI reply in database:
+INSERT INTO ai_replies (comment_id, rule_id, prompt_used, reply_generated, tokens_used, cost, approval_status, created_at, tenant_id)
+VALUES (...)
+10. If approval_required = OFF:
+    - Auto-send reply to Meta (same as manual reply)
+    - Update approval_status = 'auto_sent'
+11. If approval_required = ON:
+    - Show reply preview to user in approval queue
+    - User clicks "Approve" or "Reject"
+    - If approve: Send to Meta
+    - If reject: Mark as "rejected", offer to edit or discard
+12. Update usage tracking:
+UPDATE ai_providers 
+SET usage_this_month = usage_this_month + 130,
+    cost_this_month = cost_this_month + 0.00195
+WHERE tenant_id = :tenant_id
+
+**Alternate Flows:**
+- **AF1 - No API Key:** If user hasn't added API key, show "Please add OpenAI API key to enable AI replies"
+- **AF2 - Quota Exceeded:** If monthly quota exceeded, fall back to manual reply prompt
+- **AF3 - API Error:** If OpenAI API fails, retry with exponential backoff, max 3 retries
+- **AF4 - Poor Response:** If generated reply is too long or inappropriate, user can edit or reject
+
+**Acceptance Criteria:**
+- [ ] AI reply generated within 2 seconds
+- [ ] Reply respects tone and length settings
+- [ ] Reply respects character limits (500 for Instagram, 5000 for Facebook)
+- [ ] Token usage tracked accurately
+- [ ] Cost calculated correctly (OpenAI pricing: $0.03 per 1K tokens)
+- [ ] Monthly quota enforced
+- [ ] Approval workflow works (preview, approve, send)
+- [ ] Auto-send works if approval disabled
+- [ ] Failed API calls retried with backoff
+- [ ] User quota warnings shown when approaching limit
+- [ ] AI replies logged separately from manual replies
+- [ ] A/B testing data captured (tone, length, approval rate)
+
+---
+
+#### P0-F017: AI Provider Management
+
+**Description:** Users can add and manage their own API keys for multiple AI providers (OpenAI, Claude, Gemini, Groq) with secure storage and usage tracking.
+
+**User Story:**
+As a user, I want to use my own AI API keys so that I have control over costs and don't depend on SAFD's rate limits.
+
+**Trigger:** User navigates to Settings → AI Integration
+
+**Pre-conditions:**
+- User is authenticated
+- User has API key from OpenAI, Claude, Gemini, or Groq
+
+**Post-conditions:**
+- API key stored securely (encrypted)
+- API tested and verified
+- Usage tracking initialized
+
+**Main Flow:**
+1. User navigates to Settings → AI Integration
+2. Page displays current AI providers (if any)
+3. User clicks "Add New AI Provider"
+4. Form appears with options:
+   - **Provider Dropdown:** OpenAI / Claude / Gemini / Groq / SAFD Default
+5. If user selects "OpenAI":
+   - Input field: "Paste your OpenAI API Key"
+   - Link: "Get API key from OpenAI"
+   - System validates format: starts with "sk-"
+   - User clicks "Test Connection"
+6. System calls OpenAI API with key:
+GET https://api.openai.com/v1/models
+Headers: { Authorization: "Bearer {api_key}" }
+7. If test passes:
+   - Show "✓ Connection successful"
+   - Display available models: GPT-4, GPT-3.5, etc.
+   - User selects preferred model
+8. System encrypts API key using AES-256:
+```javascript
+   const encrypted = crypto.createCipher('aes-256-cbc', ENCRYPTION_KEY)
+     .update(apiKey, 'utf8', 'hex') + cipher.final('hex');
+```
+9. Store in database:
+INSERT INTO ai_providers (tenant_id, provider_name, api_key_encrypted, is_active, monthly_limit, created_at)
+VALUES (:tenant_id, 'openai', :encrypted_key, true, 1000000, NOW())
+10. Display confirmation:
+    - "OpenAI connected ✓"
+    - "Monthly limit: 1,000,000 tokens"
+    - "Usage this month: 0 tokens"
+    - "Cost this month: $0.00"
+11. Options to:
+    - Set custom monthly limit
+    - Rotate key (generate new, delete old)
+    - Disconnect provider
+
+**Alternate Flows:**
+- **AF1 - Invalid Key:** Test API fails, show error "Invalid API key. Please check and try again."
+- **AF2 - Key Already Added:** If key already exists, show "This provider is already connected. Use 'Update' to change it."
+- **AF3 - Multiple Providers:** User can add multiple providers, select default for each rule
+- **AF4 - Quota Exceeded:** If user's API quota exceeded with provider, show warning "Your OpenAI quota is exceeded. Replies will fall back to manual mode."
+
+**Acceptance Criteria:**
+- [ ] Form validates API key format
+- [ ] Test connection works before storing
+- [ ] API key encrypted with AES-256 before storage
+- [ ] API key never logged in plain text
+- [ ] API key never returned in API responses (only masked)
+- [ ] Multiple providers can be added
+- [ ] Default provider can be selected
+- [ ] Usage tracked per provider
+- [ ] Cost tracked per provider
+- [ ] Monthly limit can be set per provider
+- [ ] Providers can be disconnected/deleted
+- [ ] Audit log records provider changes (not the key itself)
+- [ ] Clear error messages for connection failures
+
+---
+
+#### P0-F018: AI Reply Settings
+
+**Description:** Users configure AI reply behavior per rule: tone, length, language, brand context, and approval requirements.
+
+**User Story:**
+As a user, I want to customize how AI generates replies for each rule so that replies match my brand voice and content needs.
+
+**Trigger:** User creates/edits rule with "AI Reply" enabled
+
+**Pre-conditions:**
+- User has AI provider connected
+- Rule creation/edit form open
+- AI reply toggle enabled
+
+**Post-conditions:**
+- AI settings saved to rule
+- Settings apply to all future AI-generated replies for this rule
+
+**Main Flow:**
+1. User creates rule:
+   - Rule Name: "Product Inquiry"
+   - Keywords: "price, cost, how much"
+   - **RESPONSE TYPE:** Select "AI-Generated Reply"
+2. Form expands showing AI settings:
+   - **Tone:** Radio buttons: Professional / Casual / Friendly / Formal / Salesy
+   - **Length:** Radio buttons: Short (1-2 lines) / Medium (3-5 lines) / Long (5+ lines)
+   - **Language:** Dropdown: Auto-detect / English / Arabic / Spanish / French
+   - **Brand Context:** Text area (optional) - "Sells digital products, monthly subscription $29, includes free trial"
+   - **Approval Required:** Toggle ON/OFF (default ON for v2.0)
+3. Examples shown for each tone:
+   - Professional: "Thank you for your interest. Our pricing is $29/month..."
+   - Casual: "Hey! Great Q! We're $29/month, and you'll love it 😊"
+   - Friendly: "Thanks for asking! Our product is $29/month with..."
+   - Formal: "We appreciate your inquiry. Our product is priced at $29 monthly..."
+   - Salesy: "Excellent question! For just $29/month, you get unlimited access..."
+4. User selects preferred settings
+5. User saves rule
+6. Settings stored in automation_rules table:
+{
+ai_tone: 'professional',
+ai_length: 'medium',
+ai_language: 'english',
+ai_brand_context: 'Sells digital products...',
+ai_approval_required: true
+}
+7. On next matching comment:
+   - AI prompt generated with these settings
+   - Reply generated respecting tone and length
+   - Preview shown to user (if approval required)
+
+**Alternate Flows:**
+- **AF1 - Save Per-Tenant Default:** User clicks "Save as Default" to apply tone/length to all future rules
+- **AF2 - Edit Settings:** User can edit settings on existing rule
+- **AF3 - Reset to Default:** "Use Tenant Default" button to revert to saved defaults
+
+**Acceptance Criteria:**
+- [ ] All settings options display correctly
+- [ ] Examples show actual AI-generated responses
+- [ ] Settings persist in database
+- [ ] Settings used in prompt generation
+- [ ] Generated replies match selected tone
+- [ ] Generated replies match selected length
+- [ ] Language respected in generation
+- [ ] Brand context incorporated naturally
+- [ ] Approval requirement enforced
+- [ ] Per-tenant default settings work
+- [ ] Settings can be edited after rule creation
+- [ ] Mobile app shows simplified settings (tone/approval only)
+
+---
+
+#### P0-F019: AI Reply Approval Workflow
+
+**Description:** Generated AI replies shown to user for preview, approval, rejection, or editing before sending to Meta.
+
+**User Story:**
+As a user, I want to review AI-generated replies before they're sent so that I can ensure quality and maintain control over my brand voice.
+
+**Trigger:** AI reply generated, approval_required = true
+
+**Pre-conditions:**
+- AI reply generated successfully
+- approval_required toggle enabled on rule
+- User is online (notification sent)
+
+**Post-conditions:**
+- User approves/rejects/edits reply
+- Approved reply sent to Meta
+- Action logged in activity feed
+
+**Main Flow:**
+1. AI reply generated: "Great question! Our product costs $29/month with unlimited features..."
+2. System creates approval_queue entry:
+INSERT INTO approval_queue (comment_id, rule_id, ai_reply_id, generated_text, status, created_at, tenant_id)
+VALUES (..., 'pending_review')
+3. User notified:
+   - **Web:** Badge on "Approval Queue" in sidebar
+   - **Mobile:** Push notification "AI reply waiting for approval"
+4. User navigates to Approval Queue or views from comment feed
+5. Shows card with:
+   - Original comment: "How much does this cost?"
+   - Generated reply: "Great question! Our product costs..."
+   - Action buttons: [Approve] [Reject] [Edit]
+6. **Option A - Approve:**
+   - User clicks "Approve"
+   - System sends reply to Meta (same as manual reply)
+   - Updates approval_queue: status = 'approved'
+   - Updates ai_replies: approval_status = 'approved', approved_at = NOW()
+   - Shows success: "✓ Reply sent!"
+   - Log activity: "AI reply approved and sent"
+
+7. **Option B - Reject:**
+   - User clicks "Reject"
+   - Updates approval_queue: status = 'rejected'
+   - Updates ai_replies: approval_status = 'rejected'
+   - Shows options:
+     - "Generate new reply (with different tone/length)"
+     - "Write manual reply"
+     - "Skip this comment"
+   - If generate new: Call OpenAI again with different settings
+   - Log activity: "AI reply rejected"
+
+8. **Option C - Edit:**
+   - User clicks "Edit"
+   - Text becomes editable in textarea
+   - User modifies text manually
+   - User clicks "Send"
+   - System marks as 'manually_edited'
+   - Sends edited reply to Meta
+   - Log activity: "AI reply edited and sent"
+
+9. Queue clears old items (> 7 days old)
+
+**Alternate Flows:**
+- **AF1 - Auto-Approve:** If approval_required = OFF, skip this entire flow, send immediately
+- **AF2 - Batch Approval:** User can select multiple replies, approve all at once
+- **AF3 - Time-Limited:** If user doesn't approve within 24h, auto-expire and hide from queue
+
+**Acceptance Criteria:**
+- [ ] Approval queue visible and easily accessible
+- [ ] Push notifications work for approval alerts
+- [ ] Generated reply displayed clearly with original comment
+- [ ] Approve button sends reply immediately
+- [ ] Reject button offers alternatives
+- [ ] Edit button allows text modification
+- [ ] All actions logged in activity feed
+- [ ] Status tracked (pending/approved/rejected/edited)
+- [ ] Batch operations work
+- [ ] Old items auto-expire after 7 days
+- [ ] Mobile: Simplified UI (swipe to approve/reject)
+- [ ] Web: Modal or sidebar for detailed view
+
+---
+
+#### P0-F020: Mobile App Authentication
+
+**Description:** Users can authenticate on mobile app with email/password and optional biometric authentication (Face ID, fingerprint).
+
+**User Story:**
+As a mobile user, I want to log in quickly with biometric authentication so that I can manage my accounts securely and conveniently.
+
+**Trigger:** User opens mobile app for first time or after logout
+
+**Pre-conditions:**
+- User has registered on web
+- User has valid credentials
+- Mobile device supports biometric (optional)
+
+**Post-conditions:**
+- User authenticated
+- JWT stored securely
+- Biometric set up (optional)
+
+**Main Flow:**
+1. User opens mobile app
+2. If not logged in, show login screen:
+   - Email input
+   - Password input
+   - "Login" button
+   - "Don't have an account? Sign Up" link
+3. User enters credentials and taps "Login"
+4. System validates credentials against backend
+5. If valid:
+   - JWT token received
+   - Token stored in secure storage (Keychain on iOS, Keystore on Android)
+   - Home screen displayed
+6. **First Login - Biometric Setup:**
+   - Dialog appears: "Enable Face ID / Fingerprint for faster login?"
+   - User taps "Enable"
+   - System prompts for biometric
+   - If successful: "Biometric set up ✓"
+   - Future logins can use biometric
+
+7. **Subsequent Logins:**
+   - If biometric enabled, show "Tap to authenticate with Face ID"
+   - User taps/faces device
+   - System verifies biometric locally
+   - If successful: Logged in
+   - If failed: Fall back to email/password
+
+**Alternate Flows:**
+- **AF1 - Forgot Password:** User taps "Forgot Password", enters email, receives reset link
+- **AF2 - Biometric Disabled:** User can disable biometric in settings
+- **AF3 - Biometric Failed:** User can use email/password as fallback
+- **AF4 - Device Supports Biometric:** Old devices without biometric skip biometric setup
+
+**Acceptance Criteria:**
+- [ ] Email/password login works
+- [ ] JWT token generated and stored securely
+- [ ] Biometric setup offered on first login
+- [ ] Biometric works (Face ID or fingerprint)
+- [ ] Biometric can be enabled/disabled in settings
+- [ ] Forgot password flow works
+- [ ] Session timeout after 30 days inactivity
+- [ ] Token refresh works automatically
+- [ ] Clear error messages for failed logins
+- [ ] Security: No passwords stored in local storage
+- [ ] Security: Biometric data never leaves device
+
+---
+
+#### P0-F021: Mobile Dashboard
+
+**Description:** Mobile home screen showing key metrics, recent activity, comment summary, and quick action buttons.
+
+**User Story:**
+As a mobile user, I want to see key metrics at a glance so that I can quickly assess engagement without detailed analysis.
+
+**Trigger:** User logs in, taps "Dashboard" tab
+
+**Pre-conditions:**
+- User is authenticated
+- User has posts and comments
+
+**Post-conditions:**
+- Dashboard displayed with latest data
+- Data updates in real-time
+
+**Main Flow:**
+1. User opens mobile app and sees Dashboard tab (home icon)
+2. Screen displays:
+┌─────────────────────────┐
+│ Hey, Sarah! 👋          │  ← Personalized greeting
+│ Business Page A    ▼     │  ← Tenant selector
+├─────────────────────────┤
+│ Today's Metrics:        │
+│ 🔔 15 Comments          │  ← New comments
+│ ✓ 12 Replies Sent       │  ← Auto-replies
+│ 💌 8 DMs Sent           │  ← Auto-DMs
+│ 📈 95% Reply Rate       │  ← Success rate
+├─────────────────────────┤
+│ 🔥 Hot Comments:        │
+│ • "Love this product!"  │
+│   (High engagement)     │
+│ • "How to purchase?"    │
+│   (High intent)         │
+├─────────────────────────┤
+│ Recent Activity:        │
+│ • 2 min ago: Reply sent │
+│ • 5 min ago: DM sent    │
+│ • 12 min ago: Comment   │
+├─────────────────────────┤
+│ [View All Comments]     │
+│ [Approval Queue (2)]    │  ← AI replies waiting
+│ [View Analytics]        │
+└─────────────────────────┘
+3. Real-time updates:
+   - New comment appears at top with notification
+   - Metrics update automatically
+   - Hot comments highlighted
+4. Quick actions (buttons at bottom):
+   - "💬 Comments" → Opens feed
+   - "⚙️ Rules" → Opens rules list
+   - "📊 Analytics" → Opens analytics
+5. Tenant selector (dropdown at top):
+   - Switch to another account instantly
+   - Dashboard refreshes for selected tenant
+
+**Alternate Flows:**
+- **AF1 - No Comments:** Show empty state "No activity yet. AI replies waiting for comments!"
+- **AF2 - Network Error:** Show cached data with "Offline" indicator
+- **AF3 - Refresh:** Pull-to-refresh gesture updates dashboard
+
+**Acceptance Criteria:**
+- [ ] Metrics display correctly
+- [ ] Metrics update in real-time (via WebSocket or polling)
+- [ ] Hot comments identified and highlighted
+- [ ] Recent activity feed displays
+- [ ] Quick action buttons functional
+- [ ] Tenant selector works smoothly
+- [ ] Empty state helpful and actionable
+- [ ] Loads within 3 seconds
+- [ ] Responsive to portrait/landscape
+- [ ] Dark mode supported
+- [ ] Offline mode shows cached data
+
+---
+
+#### P0-F022: Mobile Comment Feed
+
+**Description:** Real-time list of incoming comments with AI reply preview, one-tap approve/reject buttons, and comment details.
+
+**User Story:**
+As a mobile user, I want to quickly review comments and approve/reject AI replies from my phone so that I can manage engagement while on-the-go.
+
+**Trigger:** User taps "Comments" on dashboard or gets push notification
+
+**Pre-conditions:**
+- User is authenticated
+- User has comments awaiting review or AI replies pending approval
+
+**Post-conditions:**
+- Comments displayed with AI reply previews
+- User can approve/reject with single tap
+- Activity logged
+
+**Main Flow:**
+1. User taps "Comments" button on dashboard
+2. Screen shows list of recent comments:
+┌─────────────────────────┐
+│ Comments      [Filters]  │
+├─────────────────────────┤
+│ ✓ Alice (2 min ago)     │
+│ "Love this product!"    │
+│                         │
+│ AI Reply Preview:       │
+│ "Thanks so much Alice!  │
+│  We're thrilled you     │
+│  love it! 💚"          │
+│                         │
+│ [Approve] [Reject] […]  │  ← Action buttons
+├─────────────────────────┤
+│ ✗ Bob (5 min ago)       │  ← No AI reply yet (manual)
+│ "How much does it cost?"│
+│                         │
+│ No AI reply generated   │
+│ (Requires manual review)│
+│                         │
+│ [View Rule] [Send Reply]│
+├─────────────────────────┤
+│ 🔥 Carol (8 min ago)    │  ← Hot lead indicator
+│ "Where can I buy?"      │
+│                         │
+│ AI Reply Preview:       │
+│ "You can purchase on    │
+│  our website at..."     │
+│                         │
+│ [Approve] [Reject] […]  │
+├─────────────────────────┤
+3. User swipes down to refresh
+4. **Action - Approve:**
+   - User taps [Approve]
+   - Reply immediately sent to Meta
+   - Comment moves to "✓ Replied" section
+   - Toast: "Reply sent! ✓"
+   - Activity logged
+
+5. **Action - Reject:**
+   - User taps [Reject]
+   - Options appear:
+     - "Generate new reply"
+     - "Write manually"
+     - "Skip"
+   - If "Generate new": New AI reply shown
+   - If "Write manually": Text input appears
+   - If "Skip": Comment archived
+
+6. **Action - More (…):**
+   - Options: View comment details, View on Facebook, Mute, Share
+
+7. **Filters (optional):**
+   - "All Comments" / "Awaiting Review" / "Replied"
+   - "All Rules" / By specific rule
+   - Sort: Newest, Most engaged, Hot leads
+
+**Alternate Flows:**
+- **AF1 - No AI Reply:** Show manual reply option or suggest setting up rule
+- **AF2 - Swipe Gestures:** Swipe left to approve, right to reject (optional)
+- **AF3 - Batch Approval:** Long-press to select multiple, approve all
+
+**Acceptance Criteria:**
+- [ ] Comments displayed in real-time (WebSocket or polling)
+- [ ] AI reply preview shown
+- [ ] Approve button sends immediately
+- [ ] Reject button offers alternatives
+- [ ] One-tap actions work smoothly
+- [ ] Comment details expandable
+- [ ] Filters work correctly
+- [ ] Sorting works
+- [ ] Hot leads highlighted
+- [ ] Pull-to-refresh works
+- [ ] Offline mode shows cached comments
+- [ ] Push notifications alert user
+- [ ] Swipe gestures work (optional)
+
+---
+
+#### P0-F023: Mobile Push Notifications
+
+**Description:** Real-time push notifications alerting user to new comments, AI replies awaiting approval, and high-value leads.
+
+**User Story:**
+As a mobile user, I want to receive push notifications so that I'm immediately alerted to important engagement opportunities even when the app is closed.
+
+**Trigger:** Comment received, AI reply generated, high-value lead detected
+
+**Pre-conditions:**
+- User has mobile app installed
+- User has granted notification permission
+- FCM (Firebase Cloud Messaging) configured
+
+**Post-conditions:**
+- Push notification delivered
+- User can tap to open app or take action
+
+**Main Flow:**
+1. **Setup (First Run):**
+   - On app launch, system requests notification permission
+   - User taps "Allow"
+   - System generates FCM device token
+   - Device token stored in database:
+ INSERT INTO mobile_devices (user_id, tenant_id, device_token, platform, created_at)
+   - Notifications enabled
+
+2. **New Comment Notification:**
+   - Comment received via webhook
+   - System queues notification job:
+ await notificationQueue.add('send_notification', {
+   user_id: '123',
+   type: 'new_comment',
+   title: 'New comment from Alice',
+   body: 'Love this product!',
+   post_id: '456',
+   comment_id: '789'
+ })
+   - Worker sends FCM request:
+ POST https://fcm.googleapis.com/fcm/send
+ {
+   "registration_ids": ["device_token_xyz"],
+   "notification": {
+     "title": "New comment from Alice",
+     "body": "Love this product!",
+     "sound": "default"
+   },
+   "data": {
+     "type": "new_comment",
+     "post_id": "456",
+     "comment_id": "789"
+   }
+ }
+   - User receives notification on lock screen
+   - User taps notification → App opens to comment
+
+3. **AI Reply Awaiting Approval:**
+   - AI reply generated with approval_required = true
+   - System sends notification:
+ {
+   "title": "AI reply ready for approval",
+   "body": "Reply to comment: 'How much?'",
+   "data": { "type": "approval_needed", "ai_reply_id": "111" }
+ }
+   - User taps → Approval queue opens
+
+4. **Hot Lead Alert:**
+   - Comment detected as high-intent (e.g., "How to purchase?" + sentiment = positive)
+   - System sends urgent notification:
+ {
+   "title": "🔥 Hot lead!",
+   "body": "Carol: 'Where can I buy?'",
+   "priority": "high"
+ }
+
+5. **User Can Control Notifications:**
+   - Settings → Notifications
+   - Toggle: New Comments / AI Approvals / Hot Leads / All
+   - Quiet Hours: 10 PM - 8 AM (optional)
+   - Sound: On / Off
+   - Badge: Show comment count (iOS)
+
+**Alternate Flows:**
+- **AF1 - Notification Disabled:** No notifications sent, user can enable later
+- **AF2 - Device Not Registered:** If FCM token invalid, re-register
+- **AF3 - Multiple Devices:** If user has multiple devices, notify all
+
+**Acceptance Criteria:**
+- [ ] FCM integrated and tested
+- [ ] Permission request shown on first run
+- [ ] Device token stored and managed
+- [ ] New comment notifications sent
+- [ ] AI approval notifications sent
+- [ ] Hot lead notifications sent
+- [ ] Push notifications delivered reliably (95%+ success rate)
+- [ ] User can tap notification to take action
+- [ ] User can enable/disable notifications
+- [ ] Quiet hours respected
+- [ ] Sound and badge settings work
+- [ ] Analytics: Track notification open rate
+
+---
+
+#### P0-F024: Multi-Tenant Switching (Web)
+
+**Description:** Web dropdown selector allowing users to switch between multiple connected accounts instantly with zero data leakage.
+
+**User Story:**
+As a user managing multiple businesses, I want to easily switch between my different accounts so that I can manage all of them from one dashboard.
+
+**Trigger:** User has multiple tenants, clicks tenant selector
+
+**Pre-conditions:**
+- User is authenticated
+- User has connected multiple Meta accounts
+- Multiple tenants created in database
+
+**Post-conditions:**
+- Selected tenant displayed
+- All data filtered to selected tenant
+- Dashboard refreshed with new tenant's data
+
+**Main Flow:**
+1. User logs in with multiple accounts connected:
+   - Tenant 1: "Business Page A" (Facebook)
+   - Tenant 2: "Instagram Account B" (Instagram)
+   - Tenant 3: "Business Page C" (Facebook)
+
+2. Tenant selector displayed at top of sidebar:
+┌──────────────────────┐
+│ 🏪 Business Page A ▼ │  ← Dropdown selector
+└──────────────────────┘
+
+3. User clicks dropdown:
+┌──────────────────────┐
+│ Tenants:             │
+│ ✓ Business Page A    │
+│   Instagram Account B│
+│   Business Page C    │
+│                      │
+│ [+ Add Account]      │
+└──────────────────────┘
+
+4. User clicks "Instagram Account B"
+5. System:
+   - Verifies user has access to this tenant
+   - Updates JWT with new tenant_id
+   - Stores selected tenant in local storage
+   - Refreshes dashboard with Tenant B's data
+   - Shows loading state while fetching
+
+6. Dashboard now shows:
+   - Tenant B's posts
+   - Tenant B's rules
+   - Tenant B's comments
+   - Tenant B's analytics
+   - Tenant B's AI quota
+
+7. User can switch tenants without logging out
+8. All API calls now include new tenant_id
+
+**Alternate Flows:**
+- **AF1 - Add Account:** User clicks "+ Add Account" → OAuth flow starts
+- **AF2 - Revoke Access:** User can remove tenant from dropdown
+- **AF3 - Tenant Deleted:** If tenant deleted elsewhere, removed from dropdown
+
+**Acceptance Criteria:**
+- [ ] Tenant dropdown visible and accessible
+- [ ] Clicking tenant switches smoothly (< 1s)
+- [ ] JWT updated with new tenant_id
+- [ ] Dashboard refreshes with new tenant data
+- [ ] All subsequent requests use new tenant_id
+- [ ] No cross-tenant data leakage
+- [ ] Add account option works
+- [ ] Revoke access option works
+- [ ] Mobile responsive
+- [ ] Keyboard navigation supported
+- [ ] Accessibility labels present
+
+---
+
+#### P0-F025: Multi-Tenant Switching (Mobile)
+
+**Description:** Mobile account selector in navigation allowing users to switch between tenants with same security and performance as web.
+
+**User Story:**
+As a mobile user, I want to quickly switch between my accounts so that I can manage multiple businesses from my phone.
+
+**Trigger:** User has multiple tenants, taps account selector
+
+**Pre-conditions:**
+- User is authenticated
+- User has multiple tenants
+- Mobile app installed
+
+**Post-conditions:**
+- Selected tenant displayed
+- Dashboard refreshes
+- All data filtered to new tenant
+
+**Main Flow:**
+1. User opens mobile app
+2. Dashboard displays tenant selector at top:
+┌──────────────────────┐
+│ ☰  Business Page A ▼ │
+└──────────────────────┘
+
+3. User taps dropdown:
+┌──────────────────────┐
+│ Accounts:            │
+│                      │
+│ ✓ Business Page A    │  ← Current
+│   📊 15 comments     │
+│                      │
+│ • Instagram Account B│  ← Other accounts
+│   📊 22 comments     │
+│                      │
+│ • Business Page C    │
+│   📊 8 comments      │
+│                      │
+│ [+ Add Account]      │
+└──────────────────────┘
+
+4. User taps "Instagram Account B"
+5. Dashboard switches to Tenant B:
+   - Comments refresh
+   - Metrics update
+   - Rules switch to Tenant B
+   - AI quota shows Tenant B's usage
+
+6. Animated transition:
+   - Fade out current data
+   - Spin indicator while loading
+   - Fade in new tenant data
+
+**Alternate Flows:**
+- **AF1 - Swipe Between Accounts:** Horizontal swipe to next/previous account (optional)
+- **AF2 - Add New Account:** User taps "+ Add Account" → OAuth flow
+- **AF3 - Revoke Account:** Long-press to options: Remove, Disconnect
+
+**Acceptance Criteria:**
+- [ ] Tenant dropdown displayed prominently
+- [ ] Account switching smooth and fast (< 1s)
+- [ ] Dashboard data refreshes completely
+- [ ] Metrics update for new tenant
+- [ ] Rules filtered to new tenant
+- [ ] AI quota shows correct usage
+- [ ] No cross-tenant data visible
+- [ ] Add account option works
+- [ ] Remove account option works
+- [ ] Animated transitions smooth
+- [ ] Offline mode shows cached tenants
+
+---
+
+#### P0-F026: Tenant Isolation Verification
+
+**Description:** Backend verification that all queries are properly filtered by tenant_id, preventing any cross-tenant data access.
+
+**User Story:**
+As a user, I want complete assurance that my data is completely isolated from other users so that I can trust my sensitive information is protected.
+
+**Trigger:** Every API request, database query execution
+
+**Pre-conditions:**
+- User authenticated with JWT containing tenant_id
+- Database has all tables with tenant_id column
+- Row-level security (RLS) configured
+
+**Post-conditions:**
+- Query validated against JWT tenant_id
+- Only user's tenant_id data returned
+- 403 Forbidden if tenant_id mismatch
+
+**Main Flow:**
+1. User makes API request: `GET /api/v1/posts`
+2. Backend receives JWT with:
+```json
+   {
+     "sub": "user_123",
+     "tenant_id": "tenant_456",
+     "iat": 1234567890
+   }
+```
+3. Middleware validates tenant_id in JWT
+4. Database query executed:
+```sql
+   SELECT * FROM posts 
+   WHERE tenant_id = :tenant_id 
+   AND user_id = :user_id
+   LIMIT 100
+```
+5. Only posts from tenant_456 returned
+6. If user tries to manually query different tenant:
+GET /api/v1/posts?tenant_id=tenant_789
+7. System detects mismatch:
+   - JWT has tenant_id = tenant_456
+   - Query requests tenant_id = tenant_789
+   - Returns 403 Forbidden: "Unauthorized access to resource"
+
+8. Verification runs on ALL operations:
+   - SELECT queries: WHERE tenant_id filter applied
+   - INSERT: tenant_id set from JWT
+   - UPDATE: WHERE tenant_id filter applied
+   - DELETE: WHERE tenant_id filter applied
+
+9. Database indexes created:
+```sql
+   CREATE INDEX idx_posts_tenant_id ON posts(tenant_id);
+   CREATE INDEX idx_posts_tenant_user ON posts(tenant_id, user_id);
+   CREATE INDEX idx_comments_tenant ON comments(tenant_id);
+```
+
+10. Audit logging:
+INSERT INTO audit_logs (user_id, tenant_id, action, resource, result, timestamp)
+VALUES ('user_123', 'tenant_456', 'GET', 'posts', 'SUCCESS', NOW())
+
+**Alternate Flows:**
+- **AF1 - Token Tampering:** If JWT modified, signature validation fails, 401 Unauthorized
+- **AF2 - Missing Tenant ID:** If JWT missing tenant_id, 403 Forbidden
+- **AF3 - Admin Check:** If user tries admin routes, 403 Forbidden (even with valid JWT)
+
+**Acceptance Criteria:**
+- [ ] All database tables have tenant_id column
+- [ ] All SELECT queries include WHERE tenant_id filter
+- [ ] All INSERT queries set tenant_id from JWT
+- [ ] All UPDATE/DELETE queries include WHERE tenant_id filter
+- [ ] Middleware validates tenant_id on every request
+- [ ] Cross-tenant access returns 403 Forbidden
+- [ ] Audit logs record all access attempts
+- [ ] Database indexes on (tenant_id, resource_id) exist
+- [ ] Performance: Indexed queries < 100ms even with 1M+ records
+- [ ] Tests verify isolation with multiple test tenants
+- [ ] No tenant can query other tenant's data via API
+- [ ] No tenant can modify other tenant's data
+
+---
+
+#### P0-F027: CRM Integration Setup
+
+**Description:** Users can add HubSpot, Pipedrive, or Salesforce credentials to sync social comments as contacts and track conversions.
+
+**User Story:**
+As a user, I want to integrate my CRM so that comments automatically create contacts and I can track conversions from social to sales.
+
+**Trigger:** User navigates to Settings → Integrations → Add CRM
+
+**Pre-conditions:**
+- User is authenticated
+- User has CRM account (HubSpot, Pipedrive, Salesforce)
+- User has API credentials or OAuth access
+
+**Post-conditions:**
+- CRM credentials stored securely
+- Sync configured and tested
+- Contact mapping defined
+
+**Main Flow:**
+1. User navigates to Settings → Integrations
+2. Clicks "Add CRM Integration"
+3. Form appears with CRM dropdown:
+   - HubSpot
+   - Pipedrive
+   - Salesforce
+
+4. **If HubSpot:**
+   - System shows OAuth flow:
+     - "Connect with HubSpot"
+     - Redirect to HubSpot login
+     - User grants permissions
+     - HubSpot redirects back with access_token
+   - System stores encrypted token
+   - System fetches HubSpot account info
+   - Show success: "HubSpot connected ✓"
+
+5. **If Pipedrive:**
+   - User enters:
+     - Company name (e.g., "mycompany")
+     - API token (from Pipedrive settings)
+   - System validates credentials
+   - System tests connection
+   - If valid, store encrypted token
+   - Show success: "Pipedrive connected ✓"
+
+6. **If Salesforce:**
+   - System shows OAuth flow
+   - User logs in to Salesforce
+   - User grants permissions
+   - System stores access_token
+   - System fetches organization info
+   - Show success: "Salesforce connected ✓"
+
+7. **Field Mapping:**
+   - Display: "Map social comment data to CRM fields"
+   - Form shows:
+ Commenter Name → HubSpot: Contact First/Last Name
+ Comment Text → HubSpot: Contact Notes / Description
+ Post URL → HubSpot: Deal Source
+   - User can customize mapping
+   - Save mapping
+
+8. **Test Sync:**
+   - System creates test contact in CRM
+   - User confirms: "Test contact created in HubSpot"
+   - Remove test contact
+   - System ready for live sync
+
+9. **Enable Auto-Sync:**
+   - Toggle: "Automatically create contacts from comments"
+   - First sync happens immediately (historical comments)
+   - Show sync status: "Syncing 247 comments..."
+
+**Alternate Flows:**
+- **AF1 - API Credentials Invalid:** Show error, allow retry
+- **AF2 - CRM Rate Limit:** If rate limit hit, queue for later
+- **AF3 - Disconnect CRM:** User can revoke access and reconnect
+
+**Acceptance Criteria:**
+- [ ] CRM dropdown displays all 3 options
+- [ ] OAuth flow works for HubSpot and Salesforce
+- [ ] API token authentication works for Pipedrive
+- [ ] Credentials encrypted before storage
+- [ ] Connection test successful before enabling
+- [ ] Field mapping displayed and editable
+- [ ] Test contact creation works
+- [ ] Auto-sync toggle enables/disables
+- [ ] Historical sync works (catches up on past comments)
+- [ ] Sync status visible to user
+- [ ] CRM can be disconnected/reconnected
+- [ ] Error messages clear and actionable
+- [ ] Audit log records CRM connection changes
+
+---
+
+#### P0-F028: Auto-Create CRM Contacts
+
+**Description:** When comment received, system automatically creates/updates contact in connected CRM with metadata from comment and post.
+
+**User Story:**
+As a user, I want every commenter automatically added to my CRM so that I can nurture leads and track conversions without manual data entry.
+
+**Trigger:** Comment received, CRM integration enabled
+
+**Pre-conditions:**
+- User has CRM integrated and enabled
+- Comment received via webhook
+- Contact doesn't already exist in CRM
+
+**Post-conditions:**
+- Contact created/updated in CRM
+- Comment linked to contact
+- Activity logged
+
+**Main Flow:**
+1. Comment received via webhook:
+   - post_id: "789"
+   - comment_id: "456"
+   - user_id: "alice_123" (Meta user ID)
+   - user_name: "Alice Johnson"
+   - message: "How much does this cost?"
+   - created_time: "2026-05-02T10:30:00Z"
+
+2. System checks if comment received and CRM enabled:
+   - SELECT crm_integrations WHERE tenant_id = :tenant_id AND is_active = true
+   - If not found, return (no CRM sync)
+
+3. System queues job:
+await crmQueue.add('create_contact', {
+comment_id: '456',
+user_name: 'Alice Johnson',
+message: 'How much does this cost?',
+post_id: '789',
+platform: 'facebook'
+})
+
+4. Worker processes job:
+   - Build contact data from comment:
+```json
+     {
+       "firstName": "Alice",
+       "lastName": "Johnson",
+       "phone": null,
+       "email": null,
+       "notes": "Commented: 'How much does this cost?' on post [link]",
+       "source": "Social - Facebook",
+       "custom_fields": {
+         "last_comment": "How much does this cost?",
+         "comment_date": "2026-05-02T10:30:00Z",
+         "social_platform": "facebook"
+       }
+     }
+```
+
+5. Call CRM API to create contact:
+   - **HubSpot:**
+ POST https://api.hubapi.com/crm/v3/objects/contacts
+ {
+   "properties": [
+     { "name": "firstname", "value": "Alice" },
+     { "name": "lastname", "value": "Johnson" },
+     { "name": "notes", "value": "Commented: '...'" }
+   ]
+ }
+   - **Pipedrive:**
+ POST https://api.pipedrive.com/v1/persons
+ {
+   "name": "Alice Johnson",
+   "note": "Commented: '...'",
+   "custom_field_1": "facebook"
+ }
+   - **Salesforce:**
+ POST /services/data/v57.0/sobjects/Contact
+ {
+   "FirstName": "Alice",
+   "LastName": "Johnson",
+   "Description": "Commented: '...'"
+ }
+
+6. CRM returns contact ID (e.g., "hubspot_contact_123")
+
+7. System stores mapping:
+INSERT INTO crm_contacts (tenant_id, comment_id, crm_provider, crm_contact_id, synced_at)
+VALUES (:tenant_id, '456', 'hubspot', 'hubspot_contact_123', NOW())
+
+8. **On Follow-up Comment from Same User:**
+   - System looks up existing contact:
+ SELECT crm_contact_id FROM crm_contacts 
+ WHERE comment_user_id = :user_id AND crm_provider = :provider
+   - If found, UPDATE existing contact with new comment data
+   - If not found, create new contact
+
+9. Activity logged:
+INSERT INTO activity_logs (user_id, tenant_id, action, crm_provider, crm_contact_id, status)
+VALUES (:user_id, :tenant_id, 'crm_contact_created', 'hubspot', 'hubspot_contact_123', 'SUCCESS')
+
+**Alternate Flows:**
+- **AF1 - Contact Already Exists:** UPDATE existing contact instead of creating new
+- **AF2 - CRM API Error:** Retry with exponential backoff, max 3 retries
+- **AF3 - Rate Limit:** Queue for later if CRM rate limit hit
+- **AF4 - Duplicate Name:** CRM may create duplicate, user can manually merge in CRM
+
+**Acceptance Criteria:**
+- [ ] Contact created in CRM within 2 minutes of comment
+- [ ] Contact has all available metadata (name, comment text, post link)
+- [ ] Contact updated if user comments again
+- [ ] Mapping stored (comment → CRM contact)
+- [ ] Failed syncs retried with backoff
+- [ ] Sync status visible to user
+- [ ] Activity logs all sync events
+- [ ] Works with HubSpot, Pipedrive, Salesforce
+- [ ] Respects CRM rate limits
+- [ ] No duplicate contacts created unnecessarily
+- [ ] Contact can be viewed in CRM from SAFD dashboard
+
+---
+
+#### P0-F029: CRM Sync Status
+
+**Description:** Dashboard showing CRM sync status, last sync time, number of synced contacts, and any failed syncs.
+
+**User Story:**
+As a user, I want to see CRM sync status so that I know my contacts are being properly synced and can troubleshoot issues.
+
+**Trigger:** User navigates to Settings → CRM Integrations
+
+**Pre-conditions:**
+- User has CRM integrated
+- User is authenticated
+
+**Post-conditions:**
+- Sync status displayed
+- User can manually trigger sync
+- Failed syncs visible with error details
+
+**Main Flow:**
+1. User navigates to Settings → CRM Integrations
+2. Page displays CRM status:
+┌─────────────────────────────────┐
+│ CRM Integrations               │
+├─────────────────────────────────┤
+│ HubSpot  [✓ Connected]         │
+│ Last Sync: 2 minutes ago       │
+│ Status: ✓ Syncing...           │
+│ Contacts Synced: 1,247         │
+│ Failed Syncs: 3                │
+│                                 │
+│ [Sync Now] [View Failed]       │
+├─────────────────────────────────┤
+│ Pipedrive  [✗ Error]           │
+│ Last Sync: 1 hour ago          │
+│ Status: ✗ Rate limit hit       │
+│ Contacts Synced: 832           │
+│ Failed Syncs: 12               │
+│                                 │
+│ [Retry] [Troubleshoot]         │
+├─────────────────────────────────┤
+│ Salesforce  [✗ Disconnected]   │
+│ Status: Authorization expired  │
+│                                 │
+│ [Reconnect]                    │
+└─────────────────────────────────┘
+
+3. **Sync Statistics:**
+   - Total contacts synced this month
+   - Sync success rate (%)
+   - Average sync time
+   - Trend: Syncs increasing/decreasing
+
+4. **Manual Sync:**
+   - User clicks [Sync Now]
+   - System immediately syncs all pending contacts
+   - Progress bar shows: "Syncing 15 contacts..."
+   - When complete: "✓ Synced 15 contacts"
+
+5. **Failed Syncs:**
+   - User clicks [View Failed]
+   - Dialog shows:
+ Failed Syncs (3):
+ 
+ 1. Comment ID: 456, Error: "Invalid email format"
+    Commenter: Alice Johnson
+    [Retry] [Discard]
+ 
+ 2. Comment ID: 789, Error: "Rate limit exceeded"
+    Commenter: Bob Smith
+    [Retry] [Discard]
+ 
+ 3. Comment ID: 999, Error: "Authorization expired"
+    Commenter: Carol Davis
+    [Reconnect]
+
+6. **User Can:**
+   - Retry failed sync
+   - Discard failed contact
+   - Reconnect if auth expired
+   - Download sync log as CSV
+
+**Alternate Flows:**
+- **AF1 - No Failures:** Show "All syncs successful ✓"
+- **AF2 - Rate Limited:** Show retry time and automatic retry countdown
+- **AF3 - Not Integrated:** Show "Add CRM Integration to enable syncing"
+
+**Acceptance Criteria:**
+- [ ] Sync status displays correctly for each CRM
+- [ ] Last sync time shown and accurate
+- [ ] Contact count shown and accurate
+- [ ] Failed syncs listed with error details
+- [ ] Manual sync works instantly
+- [ ] Progress bar shows sync progress
+- [ ] Failed syncs can be retried
+- [ ] Failed syncs can be discarded
+- [ ] CRM can be reconnected if auth expired
+- [ ] Sync statistics displayed
+- [ ] Sync trend shown (improving/worsening)
+- [ ] CSV export works
+- [ ] Mobile responsive
+
+---
+
+#### P0-F030: Advanced Analytics Dashboard
+
+**Description:** Comprehensive analytics dashboard showing engagement metrics, AI reply stats, CRM conversion funnel, and ROI.
+
+**User Story:**
+As a user, I want to see detailed analytics and ROI so that I can prove the value of social engagement automation to my business.
+
+**Trigger:** User clicks "Analytics" tab on dashboard
+
+**Pre-conditions:**
+- User is authenticated
+- User has at least 100 comments received
+
+**Post-conditions:**
+- Analytics dashboard displayed
+- Data updated in real-time
+- User can filter by date range and rule
+
+**Main Flow:**
+1. User navigates to Analytics dashboard
+2. Dashboard displays comprehensive metrics:
+┌─────────────────────────────────┐
+│ Analytics Dashboard             │
+│ [Date Range: Last 30 days] [↻]  │
+├─────────────────────────────────┤
+│ Key Metrics (Top Row):          │
+│ 📊 1,247 Comments      📈 +15% │
+│ ✓ 1,185 Replies (95%)  📈 +20% │
+│ 💌 892 DMs Sent (71%)  📈 +10% │
+│ 🔄 67 Conversions       📈 +5%  │
+├─────────────────────────────────┤
+│ AI Reply Statistics:            │
+│ 🤖 847 AI Replies Generated     │
+│ ✓ 805 Approved (95%)           │
+│ ✗ 42 Rejected (5%)             │
+│ 📝 Average Approval Time: 12min │
+├─────────────────────────────────┤
+│ Conversion Funnel:              │
+│ Comments → DMs → CRM → Sales    │
+│                                 │
+│ 1,247 (100%)  [Received]       │
+│   │                            │
+│   └─→ 892 (72%)  [DMs Sent]    │
+│         │                      │
+│         └─→ 234 (26%) [CRM Lead]
+│              │                 │
+│              └─→ 67 (29%) [Sale]
+│                                 │
+│ Overall Conversion: 5.4%        │
+├─────────────────────────────────┤
+│ Charts (Scrollable):            │
+│ 1. Comments Over Time (Line)   │
+│ 2. Reply Rate by Rule (Bar)    │
+│ 3. Sentiment Distribution (Pie)│
+│ 4. Top Performing Rules        │
+│ 5. DM Delivery Rate (Line)     │
+│ 6. Cost Analysis (Pie)         │
+└─────────────────────────────────┘
+
+3. **Metric Definitions:**
+   - **Comments:** Total comments received in period
+   - **Replies:** Comments with auto-reply sent (%)
+   - **DMs:** Comments with DM sent (%)
+   - **Conversions:** Comments leading to sale (tracked via CRM)
+   - **AI Replies:** Replies generated by AI (%)
+   - **Approval Rate:** AI replies approved by user (%)
+
+4. **Charts:**
+   - **Comments Over Time:** Line chart showing daily comment volume, trend line
+   - **Reply Rate by Rule:** Bar chart showing % of comments matched per rule
+   - **Sentiment Distribution:** Pie chart: Positive / Neutral / Negative
+   - **Top Performing Rules:** Table showing: Rule name, comments matched, approval rate, conversion rate
+   - **DM Delivery:** Line chart showing % DMs successfully delivered
+   - **Cost Analysis:** Pie chart showing API costs (Meta, OpenAI, etc.)
+
+5. **Filtering:**
+   - Date Range: Last 7 days / 30 days / 90 days / Custom
+   - Rule: All / By specific rule
+   - Platform: All / Facebook / Instagram
+   - Sentiment: All / Positive / Neutral / Negative
+
+6. **Export:**
+   - [Download Report] button → PDF with full analysis
+   - [Export Data] button → CSV with raw numbers
+
+7. **Real-Time Updates:**
+   - Metrics refresh every 5 minutes
+   - Chart animations on updatesYou said: ContinueContinue3:21 PMClaude responded: New conversion notifications
+New conversion notifications
+
+Alternate Flows:
+
+AF1 - No Data: Show "No analytics data yet. Configure rules and wait for comments."
+AF2 - Date Range Too Short: "Not enough data for analysis. Try longer range."
+AF3 - Mobile View: Simplified dashboard with top metrics only
+
+Acceptance Criteria:
+
+ All metrics calculated correctly
+ Charts display with proper data
+ Filtering works (date, rule, platform, sentiment)
+ Export to PDF works
+ Export to CSV works
+ Real-time updates work (every 5min)
+ Conversion funnel accurate
+ ROI calculated correctly
+ Trends shown (up/down arrows)
+ Mobile responsive (simplified view)
+ Loads within 3 seconds
+ Drill-down available (click chart to see details)
+
+
+P0-F031: Mobile Offline Mode
+Description: Mobile app caches recent posts, comments, rules, and allows viewing offline; syncs when online.
+User Story:
+As a mobile user in an area with spotty connectivity, I want to view recent comments and manage rules offline so that I can work even without internet.
+Trigger: User opens app without network, or explicitly enables offline mode
+Pre-conditions:
+
+User has used app previously (data cached)
+App has offline caching configured
+
+Post-conditions:
+
+Recent data cached and displayed
+All changes synced when online
+User notified of offline status
+
+Main Flow:
+
+User has active internet connection
+App automatically caches data:
+
+Last 100 comments (locally)
+Last 20 posts (locally)
+User's rules (locally)
+Analytics snapshots (latest)
+
+
+Cache storage: SQLite database on device (< 100MB)
+User Goes Offline:
+
+Network connection lost
+App detects no internet
+Displays banner: "You're offline. Viewing cached data."
+
+
+User Can Still:
+
+View dashboard (cached metrics)
+View recent comments (cached)
+View posts (cached)
+Edit rules (changes stored locally)
+Read activity logs (cached)
+Cannot: Approve AI replies, send new replies, sync with Meta/CRM
+
+
+User Makes Changes Offline:
+
+Edits rule: "Add keyword: 'purchase'"
+Change stored in local SQLite
+Badge on rule: "⏱ Pending sync"
+
+
+User Goes Back Online:
+
+App detects network restored
+Automatic sync queue triggers:
+
+Sync changed rules
+Sync new comments from Meta (fetch latest)
+Sync approvals to Meta
+
+
+Sync progress shown: "Syncing 3 changes..."
+Confirmation: "✓ Synced successfully"
+Badge removed: "⏱" gone
+
+
+Conflict Resolution:
+
+If same rule edited on web while offline
+Mobile shows: "This rule was updated elsewhere. Your changes: [show local]. Server changes: [show remote]. [Keep Local] [Accept Server]"
+
+
+
+Alternate Flows:
+
+AF1 - No Cache: If app opened for first time without network, show "Connect to internet to download data"
+AF2 - Old Cache: If cache > 1 week old, show "Cache is outdated. Sync for latest data."
+AF3 - Manual Sync: User can tap [Sync Now] button to force sync
+
+Acceptance Criteria:
+
+ App caches last 100 comments
+ App caches user's posts and rules
+ Offline indicator displayed
+ Can view cached data offline
+ Can edit rules offline
+ Changes flagged as pending
+ Automatic sync when online
+ Manual sync option available
+ Conflict resolution handled
+ Cache expires after 7 days
+ Cache size < 100MB
+ Sync completes within 30 seconds
+ No data loss on offline edit/sync
+
+
+P0-F032: AI Usage Tracking & Limits
+Description: System tracks AI token usage and costs per tenant, enforces monthly limits, shows usage stats and cost trends.
+User Story:
+As a user, I want to see my AI usage and costs so that I can manage my AI budget and avoid surprise charges.
+Trigger: User generates AI reply, or navigates to Settings → AI Usage
+Pre-conditions:
+
+User has AI provider connected
+User has generated AI replies
+
+Post-conditions:
+
+Usage tracked in database
+Cost calculated and displayed
+Warnings shown near limit
+
+Main Flow:
+
+When AI Reply Generated:
+
+OpenAI responds with token count: 130 tokens
+System calculates cost: 130 × $0.00003 = $0.0039
+System updates usage:
+
+
+
+     UPDATE ai_providers 
+     SET usage_this_month = usage_this_month + 130,
+         cost_this_month = cost_this_month + 0.0039
+     WHERE tenant_id = :tenant_id
+
+Data stored in ai_replies table for detailed tracking
+
+
+User Views AI Usage:
+
+Navigates to Settings → AI Integration
+Page displays:
+
+
+
+     ┌────────────────────────────┐
+     │ AI Provider: OpenAI        │
+     ├────────────────────────────┤
+     │ Monthly Limit: 10M tokens  │
+     │ This Month Usage:          │
+     │ ████████░░ 8.2M / 10M      │
+     │ (82% used)                 │
+     │                            │
+     │ Cost This Month: $24.60    │
+     │ Cost Limit: $100/month     │
+     │                            │
+     │ Replies Generated: 847     │
+     │ Tokens/Reply: 97 avg       │
+     │                            │
+     │ Days Remaining: 28         │
+     │ Est. Final Cost: $28.30    │
+     │                            │
+     │ [Download Report]          │
+     └────────────────────────────┘
+
+Warnings:
+
+When 70% used: Yellow warning "You're using 70% of your monthly quota"
+When 85% used: Orange warning "You're near your limit"
+When 100% used: Red warning "Monthly quota exceeded. New AI replies disabled."
+When over cost limit: "You're over your cost limit. New AI replies disabled."
+
+
+Limit Enforcement:
+
+Before generating AI reply:
+
+
+
+     IF usage_this_month + estimated_tokens > monthly_limit
+       THEN return error: "Monthly quota exceeded"
+
+User must upgrade to Premium or wait for reset
+
+
+Usage Report:
+
+User clicks [Download Report]
+PDF generated showing:
+
+Daily usage graph
+Cost trends
+Rules with highest usage
+Suggested optimizations
+
+
+
+
+Cost Trends:
+
+Chart showing cost over time
+Projection to end of month
+Average cost per reply
+
+
+
+Alternate Flows:
+
+AF1 - Shared Quota: If using SAFD default, separate quota tracking
+AF2 - Upgrade Plan: Link to Premium: "Upgrade for unlimited AI replies"
+AF3 - Set Custom Limit: User can set custom monthly token limit
+
+Acceptance Criteria:
+
+ Usage tracked per AI reply generated
+ Cost calculated correctly
+ Monthly limit enforced
+ Warnings displayed at 70%, 85%, 100%
+ Usage percentage shown visually (progress bar)
+ Daily usage history available
+ Cost trends shown
+ Report generation works
+ Mobile shows simplified usage info
+ Real-time updates (within 1 minute)
+ Reset on first of month
+ Cost projections accurate
+
+
+P0-F033: Mobile API Optimization
+Description: Backend API endpoints optimized for mobile: small payloads, efficient pagination, mobile-specific routes.
+User Story:
+As a mobile user on a slow connection, I want the app to load quickly and use minimal data so that I can use it without draining battery or data.
+Trigger: Mobile app makes API request
+Pre-conditions:
+
+Mobile app installed
+User authenticated
+
+Post-conditions:
+
+API response < 500ms
+Response size < 100KB
+Minimal data usage
+
+Main Flow:
+
+Mobile-Specific Endpoints:
+
+GET /api/v1/mobile/dashboard (lightweight dashboard data)
+GET /api/v1/mobile/comments (paginated, minimal data)
+GET /api/v1/mobile/approval-queue (focused approval data)
+vs. web: GET /api/v1/posts (full details)
+
+
+Response Optimization:
+
+Web endpoint: Full post object (500+ bytes)
+
+
+
+json     {
+       "id": "123",
+       "post_id": "456",
+       "caption": "...",
+       "image_url": "...",
+       "platform": "facebook",
+       "engagement": {
+         "likes": 150,
+         "comments": 23,
+         "shares": 5
+       },
+       "created_at": "2026-05-01T10:00:00Z",
+       "rules": [{...}, {...}],
+       "last_synced": "2026-05-02T10:30:00Z"
+     }
+
+Mobile endpoint: Minimal post object (100 bytes)
+
+json     {
+       "id": "123",
+       "caption": "...",
+       "engagement": { "c": 23 },
+       "created_at": 1714567200
+     }
+
+Pagination:
+
+Web: 50 items per page
+Mobile: 10 items per page (faster initial load)
+User swipes: Load next 10 items
+
+
+Image Optimization:
+
+Web: Full resolution images
+Mobile: Thumbnail URLs (small images)
+User can tap to expand
+
+
+Lazy Loading:
+
+Only load visible comments (on-screen)
+Load next batch on scroll
+Cache in SQLite for offline access
+
+
+Compression:
+
+Gzip response compression enabled
+Request + response < 50KB per API call
+
+
+Connection-Aware:
+
+Detect connection speed: 4G / 3G / WiFi
+Adjust payload size accordingly
+Suggest WiFi if on cellular
+
+
+
+Alternate Flows:
+
+AF1 - Poor Connection: Show simplified UI, fewer images
+AF2 - Offline: Serve cached data instead
+
+Acceptance Criteria:
+
+ Mobile-specific endpoints exist
+ Response time < 500ms (95th percentile)
+ Response size < 50KB per request
+ Pagination works (10 items at a time)
+ Lazy loading implemented
+ Images optimized for mobile
+ Gzip compression enabled
+ Battery usage < 5% per hour
+ Data usage < 1MB per hour of active use
+ Connection speed detection works
+ Offline mode provides cached data
+ Performance tested on 3G connection
+
+
+8. NON-FUNCTIONAL REQUIREMENTS
+Performance
+Requirementv1.0 Targetv2.0 TargetMeasurementPage Load Time (Web)< 2 seconds< 2 secondsLargest Contentful Paint (LCP)App Load Time (Mobile)N/A< 3 secondsFirst render to interactiveAPI Response Time< 500ms< 500ms95th percentile latencyComment Processing< 2 seconds< 2 secondsTime from webhook receipt to reply sentAI Reply GenerationN/A< 2 secondsTime from API call to responseSearch Response< 500ms< 500msTime to filter/search postsDashboard Refresh< 3 seconds< 3 secondsTime to sync and display latest postsDatabase Query< 100ms< 100msWorst-case query latencyMobile API ResponseN/A< 500ms95th percentile latencyBattery Usage (Mobile)N/A< 5% per hourBattery drain per hour of useData Usage (Mobile)N/A< 1MB per hourMobile data consumption
+Security
+RequirementImplementationv1.0v2.0AuthenticationJWT with 30-day expiration, refresh token rotation every 7 days✓✓AuthorizationTenant-based isolation, row-level security (RLS) on all queries✓✓Credential StorageAES-256 encryption for Meta API keys at rest✓✓AI Key StorageAES-256 encryption for user's AI API keys—✓CRM Key StorageAES-256 encryption for CRM credentials—✓TransportTLS 1.3 for all API calls and webhooks✓✓Input ValidationAll inputs validated server-side, SQL injection protected (parameterized queries)✓✓CSRF ProtectionState token on OAuth flow, CSRF tokens on state-changing requests✓✓Webhook SignatureHMAC-SHA256 validation of X-Hub-Signature header✓✓Rate Limiting100 requests/minute per user, 1000 requests/hour globally✓✓LoggingNo passwords, API keys, or sensitive data in logs✓✓Access ControlUser can only access own tenant data (403 Forbidden otherwise)✓✓Password Requirements8+ chars, 1 uppercase, 1 number, 1 special character, bcrypt hashing✓✓Session Timeout30 days inactivity, 8 hours absolute max✓✓Biometric (Mobile)Face ID / Fingerprint on device, no data sent to server—✓FCM Tokens (Mobile)Device tokens stored securely, encrypted in transit—✓API Key MaskingOnly last 4 characters shown in UI✓✓
+Availability
+RequirementTargetStrategyv1.0v2.0Uptime99.9%Redundant infrastructure, auto-failover✓✓Mean Time to Recovery< 15 minutesAutomated health checks, alerting✓✓Graceful DegradationData stale > 5 minServe cached data if API fails✓✓Maintenance Window< 2 hours/monthBlue-green deployments, zero-downtime✓✓Webhook Retry3 attemptsExponential backoff✓✓Comment Processing99%+ successfulQueue-based, retry logic✓✓Mobile App Availability99.9%App Store/Play Store distribution—✓
+Scalability
+Componentv1.0 Strategyv2.0 StrategyTargetDatabaseConnection pooling, query optimization, indexingPartitioning by tenant_id, read replicas100K records per userAPIHorizontal scaling, load balancingKubernetes, auto-scaling10K concurrent usersCacheRedis caching, query result cachingDistributed Redis cluster1M cache entriesQueueMultiple workers, job prioritizationDistributed workers across regions1K jobs/minuteStorageS3 for images, CDN for mediaDistributed S3, CloudFront1TB user dataMobile UsersN/ADedicated mobile API endpoints, rate limiting100K mobile DAU
+Accessibility
+RequirementStandardImplementationv1.0v2.0WCAG ComplianceWCAG 2.1 AAColor contrast 4.5:1, alt text on images✓✓Keyboard NavigationFull keyboard supportTab order, focus indicators✓✓Screen ReaderARIA labelsSemantic HTML, ARIA attributes✓✓Responsive DesignMobile-firstWorks on 320px+ screens✓✓Mobile AccessibilityMobile WCAGHigh contrast, tap targets > 48px—✓
+Compatibility
+ComponentSupportedv1.0v2.0Browsers (Web)Chrome 100+, Safari 15+, Firefox 100+, Edge 100+✓✓Mobile OS (App)iOS 14+, Android 10+—✓DevicesDesktop, tablet, mobile✓✓Operating SystemsWindows 10+, macOS 11+, iOS 14+, Android 10+✓✓Meta API Versionv18.0+ (current version)✓✓CRM IntegrationHubSpot, Pipedrive, Salesforce—✓AI APIOpenAI (GPT-4), Claude, Gemini, Groq—✓
+Data & Compliance
+RequirementImplementationv1.0v2.0GDPRUser data exportable, deletion on request, privacy policy, DPA with Meta✓✓CCPAData sale optouts, privacy policy, deletion compliance✓✓BackupsDaily automated backups, 30-day retention, tested monthly✓✓Data RetentionLogs deleted after 90 days, user data retained until deletion✓✓EncryptionTLS in transit, AES-256 at rest✓✓Audit LoggingAll actions logged with user ID, timestamp, action type✓✓
+Observability
+ComponentToolsDetailsv1.0v2.0MonitoringPrometheus + GrafanaCPU, memory, API latency, queue depth✓✓LoggingELK Stack or DatadogStructured JSON logs, searchable✓✓AlertingAlertmanagerError rate > 1%, latency > 1s, uptime < 99.9%✓✓TracingJaegerDistributed tracing for requests✓✓Error TrackingSentryException tracking, alerting✓✓Mobile AnalyticsFirebase AnalyticsApp usage, crash reporting—✓
+
+9. TECHNICAL ARCHITECTURE
+Frontend Stack (Web)
+ComponentTechnologyv1.0v2.0FrameworkReact 18 with TypeScript✓✓StylingTailwind CSS + shadcn/ui component library✓✓State ManagementTanStack Query (React Query) + Zustand✓✓RoutingNext.js App Router✓✓Build ToolVite✓✓TestingVitest + React Testing Library✓✓HTTP ClientAxios + interceptors for JWT refresh✓✓Real-time UpdatesWebSocket or Socket.io (v2.0)—✓Form ManagementReact Hook Form + Zod validation✓✓UI Componentsshadcn/ui (Radix UI primitives)✓✓ChartingRecharts for analytics—✓
+Frontend Stack (Mobile - v2.0)
+ComponentTechnologyFrameworkReact Native with TypeScriptUI ComponentsReact Native Paper + NativeBaseState ManagementRedux Toolkit + Async ThunkHTTP ClientAxiosLocal StorageAsyncStorage (offline data)Push NotificationsFirebase Cloud Messaging (FCM)Real-time UpdatesSocket.io or Firebase RealtimeAuthenticationJWT + Secure Storage (Keychain/Keystore)BiometricReact Native BiometricsFile StorageFirebase Storage (for media caching)
+Backend Stack
+ComponentTechnologyv1.0v2.0FrameworkNode.js + NestJS (or Express.js + TypeScript)✓✓LanguageTypeScript✓✓API StyleREST with versioning (/api/v1/)✓✓AuthenticationJWT with refresh token rotation✓✓Database ORMPrisma✓✓ValidationZod✓✓TestingJest + Supertest✓✓LoggingWinston or Pino✓✓Job QueueBullMQ + Redis✓✓CachingRedis✓✓HTTP ClientAxios or node-fetch✓✓Environment Configdotenv + joi validation✓✓AI IntegrationOpenAI SDK, Anthropic SDK, Google Generative AI—✓CRM IntegrationCustom integrations (HubSpot, Pipedrive, Salesforce SDKs)—✓Push NotificationsFirebase Admin SDK—✓
+Database
+ComponentTechnologyv1.0v2.0Primary DBPostgreSQL 14+✓✓Connection PoolpgBouncer or built-in connection pooling (min 5, max 20)✓✓MigrationsPrisma Migrate✓✓BackupDaily automated backups, 30-day retention✓✓ReplicationPrimary-replica setup for HA✓✓IndexingB-tree indexes on (tenant_id, resource_id), BRIN for timestamps✓✓Local DB (Mobile)SQLite for offline caching (v2.0)—✓
+Caching & Queue
+ComponentTechnologyv1.0v2.0CacheRedis 7+ for session, data cache✓✓Session StoreRedis (JWT in client, session metadata in Redis)✓✓Job QueueBullMQ on Redis✓✓Rate LimitingRedis-based rate limiter✓✓Mobile CacheSQLite (v2.0)—✓
+Infrastructure & Deployment
+ComponentTechnologyv1.0v2.0ContainerizationDocker + docker-compose✓✓OrchestrationDocker Compose (dev), Kubernetes (prod)✓✓HostingVPS (DigitalOcean, Linode), AWS EC2, or PaaS (Vercel, Railway, Render)✓✓Reverse ProxyNginx (or built-in on Vercel/Railway)✓✓SSL/TLSLet's Encrypt, auto-renewal✓✓CDNCloudFlare or AWS CloudFront for static assets✓✓CI/CDGitHub Actions✓✓MonitoringPrometheus + Grafana, Datadog, or New Relic✓✓LoggingELK Stack or Datadog✓✓Error TrackingSentry✓✓Mobile CI/CDGitHub Actions (iOS/Android builds)—✓FirebaseFCM, Analytics (v2.0)—✓
+Authentication & Authorization
+User Authentication:
+
+Email/password registration with email verification
+Password hashing: bcrypt (12 rounds)
+JWT token structure:
+
+json{
+  "sub": "user_id_123",
+  "tenant_id": "tenant_123",
+  "email": "user@example.com",
+  "iat": 1234567890,
+  "exp": 1234654290
+}
+
+Refresh token: Rotated every 7 days, stored in secure HTTP-only cookie
+Session timeout: 30 days inactivity, 8 hours absolute max
+
+Meta API Authentication:
+
+OAuth 2.0 with authorization code flow
+Access token stored encrypted in database
+Refresh token stored (if provided) for token refresh
+Token refresh: Automatic 1 day before expiry
+Fallback: User prompted to re-authenticate if token invalid
+
+AI API Authentication (v2.0):
+
+User provides OpenAI/Claude/Gemini API key
+Keys encrypted with AES-256 before storage
+Keys never exposed in logs or API responses
+Only last 4 characters shown in UI
+
+CRM Authentication (v2.0):
+
+OAuth 2.0 for HubSpot and Salesforce
+API key authentication for Pipedrive
+Credentials encrypted with AES-256
+
+Authorization:
+
+Row-level security (RLS) on all queries
+Tenant_id filter on every SELECT, UPDATE, DELETE
+User cannot access other tenant's data (403 Forbidden)
+Role-based access (TBD for future teams feature)
+Mobile: Biometric auth for sensitive operations
+
+External Integrations
+ServicePurposeAPI Versionv1.0v2.0Meta Graph APIFetch posts, send replies, send DMs, webhooksv18.0+✓✓Meta OAuthUser authentication via Facebook/Instagramv18.0+✓✓Email ServiceSend verification emails, reset linksSendGrid v3 or Mailgun✓✓OpenAI APIAI reply generationGPT-4—✓Claude APIAI reply generation (alternative)Latest—✓Google GeminiAI reply generation (alternative)Latest—✓Groq APIAI reply generation (alternative)Latest—✓HubSpot APICRM integrationv3—✓Pipedrive APICRM integrationv1—✓Salesforce APICRM integrationv57+—✓Firebase Cloud MessagingPush notificationsLatest—✓AnalyticsTrack user behavior, eventsPostHog or Mixpanel✓✓
+API Design
+Base URL: https://api.safd.app/api/v1
+Authentication: All requests include Authorization: Bearer {jwt_token} header
+Response Format:
+json{
+  "success": true,
+  "data": { ... },
+  "error": null,
+  "timestamp": "2026-05-01T12:34:56Z"
+}
+Key Endpoints - v1.0:
+
+POST /auth/register - User registration
+POST /auth/login - User login
+POST /auth/refresh - Refresh JWT token
+POST /auth/logout - Logout user
+GET /user/profile - Get user profile
+POST /integrations/meta/credentials - Add Meta credentials
+POST /integrations/meta/callback - OAuth callback
+GET /posts - List user's posts (paginated)
+GET /posts/:post_id - Get post details
+POST /posts/:post_id/rules - Create rule for post
+GET /rules - List all rules (global + post-specific)
+PUT /rules/:rule_id - Update rule
+DELETE /rules/:rule_id - Delete rule
+GET /activity - List activity logs
+GET /analytics - Get analytics metrics
+POST /webhook/meta - Meta webhook receiver (no auth)
+
+Key Endpoints - v2.0 (New):
+
+POST /integrations/ai/providers - Add AI provider
+POST /integrations/ai/test - Test AI connection
+POST /ai/generate-reply - Generate AI reply preview
+GET /ai/usage - Get AI usage stats
+POST /integrations/crm/connect - Add CRM integration
+GET /integrations/crm/status - Get CRM sync status
+POST /integrations/crm/sync - Manual CRM sync
+GET /mobile/dashboard - Mobile dashboard (optimized)
+GET /mobile/comments - Mobile comments feed (optimized)
+POST /mobile/approval-queue - Mobile approval queue
+GET /tenants - List user's tenants
+PUT /tenants/:tenant_id/select - Select tenant
+GET /tenants/:tenant_id/settings - Get tenant settings
+POST /push-notifications/register - Register device token (mobile)
+
+
+10. IMPLEMENTATION PHASES
+V1.0 PHASES
+Phase 1 — Foundation & Setup (2 weeks)
+Dates: May 1 - May 14, 2026
+Sprint: Sprint 1
+Goal: Set up infrastructure, authentication, database, and base frontend structure.
+Duration: 2 weeks
+Tasks:
+
+ Set up GitHub repository with branch protection rules
+ Configure CI/CD pipeline (GitHub Actions)
+ Set up Docker and docker-compose for local dev
+ Create PostgreSQL database schema (users, tenants, credentials, posts, rules, comments, replies, dms, logs)
+ Create Redis setup for caching and queue
+ Implement user registration endpoint (POST /auth/register)
+ Implement user login endpoint (POST /auth/login)
+ Implement JWT token generation and refresh
+ Set up email verification service (SendGrid or Mailgun)
+ Create React app scaffold with Next.js
+ Set up Tailwind CSS + shadcn/ui
+ Create landing page (marketing, features, CTA to register)
+ Create registration page (form, validation, email verification flow)
+ Create login page (email/password form)
+ Set up TanStack Query for server state management
+ Set up Zustand for client state (auth context)
+ Create middleware for JWT validation on routes
+ Set up Sentry for error tracking
+ Deploy staging environment
+
+Validation:
+
+User can register, verify email, and login
+JWT tokens generated and validated correctly
+Database schema functional with test data
+CI/CD pipeline runs on every push
+Landing page live on staging
+
+
+Phase 2 — Meta Integration & Dashboard (2 weeks)
+Dates: May 15 - May 28, 2026
+Sprint: Sprint 2
+Goal: Implement Meta OAuth, post fetching, and basic dashboard UI.
+Duration: 2 weeks
+Tasks:
+
+ Register Meta app and configure OAuth
+ Implement Meta OAuth flow (POST /integrations/meta/oauth/authorize, /callback)
+ Secure credential storage (AES-256 encryption)
+ Implement POST /posts endpoint to fetch posts from Meta API
+ Create scheduled job to sync posts every 60 minutes
+ Implement webhook receiver (POST /webhook/meta)
+ Set up BullMQ queue and workers
+ Create dashboard layout (sidebar, header, main content)
+ Create posts list page (cards, pagination, search, filter)
+ Create post details page
+ Create API credentials management page (add/update/delete)
+ Create onboarding wizard (5 steps: register → verify → add API → sync posts → view dashboard)
+ Implement real-time post sync status indicator
+ Create empty states for posts
+ Add loading states and error handling
+ Create activity logs backend (store comments, replies, DMs in database)
+
+Validation:
+
+User can authenticate with Meta OAuth
+Posts sync automatically every hour
+Dashboard displays all posts correctly
+Onboarding wizard completes in < 5 minutes
+Webhook receives test comments correctly
+
+
+Phase 3 — Automation Rules & Actions (2 weeks)
+Dates: May 29 - June 11, 2026
+Sprint: Sprint 3
+Goal: Implement rule creation, comment detection, auto-reply, and auto-DM.
+Duration: 2 weeks
+Tasks:
+
+ Create rule schema (post_id, keywords, reply_message, dm_message, is_active)
+ Implement POST /rules endpoint (create global rule)
+ Implement POST /posts/:post_id/rules endpoint (create post-specific rule)
+ Implement PUT /rules/:rule_id endpoint (update rule)
+ Implement DELETE /rules/:rule_id endpoint (delete rule)
+ Create rule builder UI (form with keywords, reply text, DM message)
+ Create rule list page (view all rules, edit, delete)
+ Implement rule matching engine (keyword matching, priority)
+ Implement comment webhook processing (queue job)
+ Implement send_comment_reply job (Meta API call)
+ Implement send_dm job (Meta API call, compliance check)
+ Create error handling and retry logic (exponential backoff)
+ Create rate limit handling
+ Implement activity log UI (display comments, replies, DMs)
+ Add real-time updates to activity logs (WebSocket or polling)
+ Create search/filter for activity logs
+ Test end-to-end: post → comment → rule match → reply + DM
+
+Validation:
+
+Rule creation works with all field types
+Comments trigger correct rules
+Auto-replies sent within 2 seconds
+Auto-DMs sent respecting Meta compliance
+Activity logs show all actions correctly
+Error handling works for API failures
+
+
+Phase 4 — Analytics & Polish (2 weeks)
+Dates: June 12 - June 25, 2026
+Sprint: Sprint 4
+Goal: Add analytics dashboard, refine UX, optimize performance, prepare for launch.
+Duration: 2 weeks
+Tasks:
+
+ Implement analytics aggregation (engagement, reply rates, DM delivery)
+ Create analytics dashboard UI (charts, metrics, filters)
+ Implement CSV export for logs
+ Create user profile/settings page
+ Add dark mode support (optional P2)
+ Optimize database queries (add indexes, caching)
+ Optimize API response times (target < 500ms)
+ Optimize frontend bundle size (code splitting, lazy loading)
+ Create monitoring dashboards (Grafana, Datadog)
+ Set up alerting (error rate, uptime, latency)
+ Performance testing (load testing, stress testing)
+ Security audit (OWASP Top 10)
+ Documentation (API docs, deployment guide, runbook)
+ Create user onboarding/help guide
+ Fix outstanding bugs and issues
+ Deploy to production environment
+ Create launch announcement and marketing
+
+Validation:
+
+Analytics dashboard shows correct metrics
+Page load time < 2 seconds (all pages)
+API response time < 500ms (95th percentile)
+Zero critical security vulnerabilities
+Documentation complete and clear
+Production environment stable with 99.9% uptime
+
+
+V2.0 PHASES
+Phase 5 — AI Integration (3 weeks)
+Dates: July 1 - July 21, 2026
+Sprint: Sprint 5-6
+Goal: Implement AI reply generation with OpenAI integration, API key management, approval workflow.
+Tasks:
+
+ Set up OpenAI API account and developer environment
+ Implement POST /ai/generate-reply endpoint
+ Create AI provider management page (add OpenAI key)
+ Implement API key encryption (AES-256)
+ Create AI settings form (tone, length, language, approval required)
+ Implement approval queue UI and backend
+ Create AI usage tracking and billing
+ Implement monthly limit enforcement
+ Create AI cost dashboard
+ Add AI reply support to web frontend
+ Implement batch AI reply generation
+ Create prompts for different tones and lengths
+ Test AI replies with different settings
+ Implement fallback to manual reply if AI fails
+ Create help documentation for AI feature
+
+Validation:
+
+AI replies generated within 2 seconds
+Approval workflow works end-to-end
+API keys stored securely
+Usage tracking accurate
+Monthly limits enforced
+Cost calculation correct
+
+
+Phase 6 — Mobile App Development (6 weeks)
+Dates: July 22 - September 2, 2026
+Sprint: Sprint 7-9
+Goal: Build React Native mobile app with core features.
+Duration: 6 weeks
+Tasks:
+
+ Set up React Native project with TypeScript
+ Implement user authentication (email/password + biometric)
+ Create mobile app navigation structure (tabs: Dashboard, Comments, Rules, Settings)
+ Implement dashboard screen with key metrics
+ Implement comments feed with real-time updates
+ Implement one-tap approve/reject for AI replies
+ Set up Firebase Cloud Messaging (FCM)
+ Implement push notifications (new comments, approvals, hot leads)
+ Implement offline mode with SQLite caching
+ Implement rules management on mobile
+ Create mobile API endpoints (optimized payloads)
+ Implement tenant selector on mobile
+ Create settings screen (AI provider, notifications, account)
+ Implement biometric setup and authentication
+ Test on iOS and Android devices
+ Optimize battery usage and data consumption
+ Create app store listings (iOS App Store, Google Play)
+ Submit apps for review
+
+Validation:
+
+App loads in < 3 seconds
+Biometric authentication works
+Push notifications delivered
+Offline mode functional
+Battery usage < 5% per hour
+Data usage < 1MB per hour
+App approved on both stores
+
+
+Phase 7 — Multi-Tenant & CRM Integration (4 weeks)
+Dates: September 3 - October 1, 2026
+Sprint: Sprint 10-11
+Goal: Add multi-tenant switching and CRM integration (HubSpot, Pipedrive, Salesforce).
+Tasks:
+
+ Implement tenant selector on web (dropdown)
+ Implement tenant selector on mobile
+ Verify tenant isolation on all queries
+ Implement CRM integration setup page
+ Set up HubSpot OAuth integration
+ Set up Pipedrive API authentication
+ Set up Salesforce OAuth integration
+ Implement auto-create contacts in CRM
+ Implement contact field mapping
+ Implement conversion tracking (comment → CRM lead → sale)
+ Create CRM sync status dashboard
+ Implement manual sync triggering
+ Create sync error handling and retry
+ Test multi-tenant isolation with multiple test accounts
+ Test CRM sync with real CRM accounts
+
+Validation:
+
+Tenant switching smooth and secure
+No cross-tenant data leakage
+CRM contacts created from comments
+Conversion funnel tracked
+Sync status dashboard accurate
+Manual sync works
+
+
+Phase 8 — Advanced Analytics & Polish (3 weeks)
+Dates: October 2 - October 22, 2026
+Sprint: Sprint 12
+Goal: Add advanced analytics dashboard, mobile analytics, sentiment analysis, final polish.
+Tasks:
+
+ Implement advanced analytics dashboard (web)
+ Create conversion funnel visualization
+ Implement analytics filtering and date range selection
+ Create analytics export (PDF, CSV)
+ Implement sentiment analysis backend
+ Add sentiment filters to dashboard and comments
+ Create mobile analytics dashboard (simplified)
+ Implement A/B testing for AI replies (tone/length variants)
+ Add iOS lock screen widgets (optional)
+ Optimize database queries for analytics
+ Create performance benchmarks
+ Security audit for AI and CRM integrations
+ Final UI polish and design refinements
+ Accessibility testing (WCAG 2.1 AA)
+ Mobile app performance optimization
+ Bug fixes and final testing
+
+Validation:
+
+Analytics dashboard shows all metrics correctly
+Conversion funnel accurate
+Sentiment analysis working
+Export functionality works
+Mobile app optimized
+No accessibility violations
+All critical bugs fixed
+
+
+11. USER FLOWS
+User Flow 1: Complete Onboarding (v1.0 + v2.0)
+
+User visits landing page
+Clicks "Get Started" CTA
+Redirected to registration page
+Enters email, password, confirm password
+Clicks "Sign Up"
+System validates and creates account
+Verification email sent
+User clicks email link
+Email verified, redirected to login
+User logs in with email/password
+JWT token generated, stored in cookie
+Onboarding Wizard starts (5 steps):
+
+Step 1: Welcome message, explain what SAFD does
+Step 2: "Connect Your Meta Account" — click "Connect with Facebook"
+Step 3: Meta OAuth flow — user logs in to Meta, grants permissions
+Step 4: Access token stored, user sees "Connected ✓"
+Step 5: "Create Your First Rule" — form to add keywords, reply text, DM
+Step 6: System syncs posts from Meta
+Step 7: "All Done!" — redirected to dashboard
+
+
+v2.0 Additional: "Set up AI replies? Add OpenAI API key" (optional)
+User sees dashboard with posts, can now configure rules
+
+
+User Flow 2: Configure Rule with AI Reply (v2.0)
+
+User navigates to Dashboard
+Sees list of posts with engagement metrics
+Finds post about "Product Price"
+Clicks "Configure Rules" on post card
+Modal opens showing existing rules for this post
+Clicks "Add New Rule"
+Form appears:
+
+Rule Name: "Price Inquiry"
+Keywords: "price, cost, how much, pricing"
+Match Type: "Any keyword"
+RESPONSE TYPE: Toggle "Use AI-Generated Reply"
+AI Settings:
+
+Tone: Professional
+Length: Medium
+Language: English
+Brand Context: "SaaS product, $99/month"
+
+
+Send DM?: Toggle ON
+DM Message: "Hi! Thanks for your interest. Here's a special offer just for you..."
+Approval Required: Toggle ON
+Enabled: Toggle ON
+
+
+Clicks "Save Rule"
+Rule appears in list
+Someone comments: "How much does this cost?"
+System receives webhook with comment
+Comment queued for processing
+Rule matching engine checks comment against rules
+"Cost" matches keyword "cost" → rule triggered
+v2.0: System calls OpenAI API to generate reply
+
+Prompt: "Generate a professional, medium-length reply to: 'How much does this cost?' for a SaaS product at $99/month"
+OpenAI returns: "Great question! Our product is $99/month with unlimited features..."
+
+
+AI reply preview shown to user in approval queue
+User reviews and clicks "Approve"
+Reply sent to Meta: "Great question! Our product is $99/month with unlimited features..."
+DM sent: "Hi! Thanks for your interest. Here's a special offer just for you..."
+Activity log shows:
+
+[12:34] New comment from @user_123: "How much does this cost?"
+[12:34] ✓ AI Reply approved and sent (Rule: "Price Inquiry")
+[12:34] ✓ DM sent to @user_123
+
+
+User sees activity in real-time on dashboard and mobile app (push notification)
+
+
+User Flow 3: Manage Multiple Accounts on Mobile (v2.0)
+
+User opens mobile app
+Dashboard displays tenant selector: "Business Page A ▼"
+User taps dropdown
+List of accounts appears:
+
+✓ Business Page A (15 comments today)
+Instagram Account B (22 comments)
+Business Page C (8 comments)
+
+
+User taps "Instagram Account B"
+Dashboard refreshes:
+
+Metrics update for Account B
+Comments feed shows Account B's comments
+Rules list shows Account B's rules
+AI quota shows Account B's usage
+
+
+User sees comment: "How can I purchase?"
+System shows AI reply preview: "You can purchase on our website at..."
+User taps [Approve]
+Reply sent immediately
+Push notification: "Reply sent! ✓"
+User receives another comment on Business Page C
+Push notification: "🔥 Hot lead! Carol: 'Where can I buy?'"
+User taps notification → App opens to Comments
+User taps tenant dropdown again
+Switches to "Business Page C"
+Sees Carol's hot comment
+Approves AI reply
+Done, manages 3 accounts from phone
+
+
+User Flow 4: Track Conversion from Social to Sales (v2.0)
+
+User sets up HubSpot CRM integration
+
+Navigates to Settings → Integrations
+Clicks "Add CRM"
+Selects "HubSpot"
+Clicks "Connect with HubSpot"
+Logs in to HubSpot, grants permissions
+Returns to SAFD: "HubSpot connected ✓"
+
+
+System automatically syncs comments as contacts
+
+Comment from Alice: "How much does it cost?"
+System creates HubSpot contact: "Alice Johnson"
+Notes: "Commented: 'How much does it cost?'"
+Source: "Social - Facebook"
+
+
+Alice clicks DM link in SAFD auto-DM
+Goes to website and purchases $99/month subscription
+HubSpot sees new customer "Alice Johnson" created
+SAFD tracks the conversion: Comment → DM → Sale
+User views Advanced Analytics dashboard
+Sees conversion funnel:
+
+   1,247 Comments (100%)
+     ↓
+   892 DMs (72%)
+     ↓
+   234 CRM Leads (26%)
+     ↓
+   67 Sales (29%)
+Overall Conversion: 5.4%
+
+User can see ROI:
+
+Revenue from social: 67 customers × $99 = $6,633
+AI costs: ~$30/month
+ROI: 200x
+
+
+User upgrades to Premium ($49/month) to unlock unlimited AI replies
+
+
+12. SUCCESS METRICS & KPIS
+v1.0 Business Metrics
+MetricTargetMeasurementOwnerMonthly Active Users (MAU)100+ in month 1Sign-ups in first monthProductUser Retention (30-day)60%+% users active 30 days after signupProductRules Created Per User50+Avg rules per userProductComment Volume Processed10K+/weekTotal comments receivedBackendReply Success Rate95%+% replies sent successfullyBackendDM Delivery Rate90%+% DMs delivered (respecting Meta compliance)BackendConversion Rate15%+Comments → DMs → Sales (qualitative)Product
+v2.0 Business Metrics
+MetricTargetMeasurementOwnerMonthly Active Users500+Active users by end of v2.0ProductPremium Tier Adoption30%+% users on Premium ($49/month)ProductMobile DAU40%+ of DAU% of daily active users on mobileProductPremium Retention40%+% of Premium users retained month-over-monthProductCRM Integration Rate50%+% of Premium users with CRM connectedProductAI Reply Approval Rate95%+% of AI-generated replies approved by usersAINPS Score60+Net Promoter Score (monthly survey)Product
+v1.0 Product Metrics
+MetricTargetMeasurementOwnerOnboarding Completion90%+% users completing 5-step wizardFrontendRule Adoption Rate80%+% users creating at least 1 ruleProductFeature Usage70%+% users using auto-reply, auto-DM, analyticsProductDashboard Load Time< 2sLargest Contentful PaintFrontendAPI Response Time< 500ms95th percentile latencyBackendActivity Log Latency< 1sTime from action to log appearanceBackend
+v2.0 Product Metrics
+MetricTargetMeasurementOwnerMobile App Rating3.5+ starsiOS App Store / Google Play ratingProductMobile Crash Rate< 0.1%% of sessions ending in crashMobileAI Feature Usage70%+% of Premium users using AI repliesAIMulti-Tenant Adoption30%+% of users managing 2+ accountsProductCRM Conversion Tracking100% accuracyVerified conversions tracked correctlyBackend
+v1.0 Technical Metrics
+MetricTargetMeasurementToolOwnerAPI Uptime99.9%+% successful API responsesDatadog/PrometheusDevOpsError Rate< 1%% API requests returning 5xxSentryBackendQueue Processing Time< 2sTime from job queued to completionBullMQ UIBackendDatabase Query Latency< 100ms95th percentile query timeDatadogDevOpsComment Processing Latency< 2sTime from webhook to reply sentCustom metricsBackend
+v2.0 Technical Metrics
+MetricTargetMeasurementToolOwnerMobile App Performance< 3s loadFirst load to interactiveFirebase PerformanceMobileAI API Latency< 2sTime from request to reply generatedDatadogBackendCRM Sync Latency< 5minTime from contact created to syncCustom metricsBackendMobile Battery Usage< 5% per hourBattery drain per hour of active useFirebaseMobileMobile Data Usage< 1MB per hourMobile data consumptionFirebaseMobile
+Tracking & Review
+ItemDetailsTracking ToolPostHog (events tracking), Datadog (infrastructure), Sentry (errors)Review FrequencyWeekly (technical), Bi-weekly (product), Monthly (business)Metrics DashboardPublic dashboard shared with teamReview MeetingEvery Monday 10am (team sync on metrics)Success Criteria v1.0100+ MAU, 60% retention, 95% reply rate, < 1% error rate by end of Q2Success Criteria v2.0500+ MAU, 40% Mobile DAU, 30% Premium adoption, 3.5+ star rating by end of Q3
+
+13. TIMELINE & MILESTONES
+V1.0 Timeline
+MilestoneDescriptionDue DateStatusOwnerM1 — KickoffProject kickoff, assign resources, setupMay 1, 2026✓ DONE[Owner]M2 — PRD ApprovalPRD reviewed and approved by stakeholdersMay 7, 2026✓ DONE[Owner]M3 — Phase 1 CompleteAuth, DB, landing page, registration workingMay 14, 2026✓ DONETech LeadM4 — Phase 2 CompleteMeta OAuth, post sync, dashboard UIMay 28, 2026✓ DONETech LeadM5 — Phase 3 CompleteRules, auto-reply, auto-DM working end-to-endJune 11, 2026✓ DONETech LeadM6 — Phase 4 CompleteAnalytics, polish, optimization, docsJune 25, 2026✓ DONETech LeadM7 — Beta LaunchInternal beta test with select usersJune 28, 2026✓ DONEQAM8 — Public LaunchPublic launch, announcement, marketingJuly 1, 2026✓ DONEProductM9 — Post-Launch MonitoringMonitor uptime, metrics, user feedbackJuly 1 - 7, 2026✓ DONEDevOps
+V2.0 Timeline
+MilestoneDescriptionDue DateStatusOwnerM10 — V2.0 KickoffV2.0 project kickoff, resource allocationJuly 1, 2026TODO[Owner]M11 — Phase 5 CompleteAI integration (OpenAI) working end-to-endJuly 21, 2026TODOBackend LeadM12 — Mobile AlphaMobile app basic features workingAugust 15, 2026TODOMobile LeadM13 — Phase 6 CompleteMobile app fully functionalSeptember 2, 2026TODOMobile LeadM14 — Phase 7 CompleteMulti-tenant + CRM integration workingOctober 1, 2026TODOBackend LeadM15 — Phase 8 CompleteAdvanced analytics, Polish, Final testingOctober 22, 2026TODOQA LeadM16 — Mobile BetaiOS/Android beta for external testersOctober 25, 2026TODOQA LeadM17 — App Store SubmissionSubmit to iOS App Store + Google PlayNovember 1, 2026TODOMobile LeadM18 — V2.0 Public LaunchPublic launch of v2.0 (web + mobile)November 10, 2026TODOProductM19 — Post-Launch SupportMonitor metrics, user feedback, hotfixesNov 10 - 17, 2026TODODevOps
+
+14. RISK REGISTER
+V1.0 Risks
+IDRiskLikelihoodImpactScoreMitigationOwnerR1Meta API changes (breaking changes to Graph API)Medium (2)High (3)6Subscribe to Meta API change notifications, version API endpoints, spike time on compatibilityBackend LeadR2Rate limits cause missed replies (hitting Meta throttling)Medium (2)High (3)6Implement queue with rate limiting, batch requests, implement exponential backoffBackend LeadR3User account bans from Meta (spam detection)Low (1)High (3)3Only use official APIs (no scraping), comply with Meta ToS, educate users on best practicesProductR4Scope creep (feature requests delaying launch)High (3)Medium (2)6Enforce MoSCoW strictly, document why features deferred to v2, weekly scope reviewProduct ManagerR5Key person dependency (only 1 person knows X)Medium (2)High (3)6Pair programming, documentation, knowledge sharing sessions, cross-trainingTech LeadR6Database performance degrades at scale (100K+ records)Low (1)High (3)3Optimize queries early, add indexes, load test, cache hot dataDevOpsR7Security vulnerability in dependenciesLow (1)High (3)3Regular dependency audits (npm audit), OWASP review, security testingSecurityR8Delayed third-party services (SendGrid, Meta API downtime)Low (1)Medium (2)2Use multiple email providers, fallback error messages, SLA monitoringDevOpsR9Team capacity constraints (sick leave, departures)Medium (2)Medium (2)4Cross-training, buffer time in timeline, documentation, backup planHRR10Launch deadline slip (Phase 4 overruns)Medium (2)Medium (2)4Aggressive scope management, weekly velocity tracking, contingency planProject Manager
+V2.0 Additional Risks
+IDRiskLikelihoodImpactScoreMitigationOwnerR11AI API costs exceed projectionsMedium (2)Medium (2)4Set monthly limits per user, monitor costs weekly, have pricing levers (Premium tiers)ProductR12CRM integration complexity (too many SDKs)Medium (2)Medium (2)4Use SDKs, build unified interface, test thoroughly, start with HubSpot only if neededBackend LeadR13Mobile app development delaysHigh (3)Medium (2)6Use React Native (code sharing), hire experienced mobile engineer, buffer in timelineMobile LeadR14iOS/Android app rejection (policy violations)Low (1)High (3)3Review App Store/Play Store guidelines early, submit for early review, legal reviewMobile LeadR15Multi-tenant isolation bugs (data leakage)Low (1)Critical (4)4Thorough testing, code review, security audit, automated tests for isolationBackend LeadR16User churn after v1.0 launch (waiting for v2.0)Medium (2)Medium (2)4Communicate v2.0 roadmap, deliver v2.0 on schedule, keep v1.0 stableProductR17FCM push notifications not deliveringLow (1)Medium (2)2Test on real devices, monitor delivery rates, have fallback (polling)Mobile LeadR18SQLite offline cache corruptionLow (1)Medium (2)2Implement cache validation, sync all data when online, test offline scenariosMobile Lead
+
+15. STAKEHOLDERS & APPROVALS
+Stakeholders
+NameRoleInvolvementContactNotes[Your Name]Product Manager / OwnerDaily standups, roadmap decisions, user feedback[email]Project owner[Tech Lead]Engineering LeadArchitecture, technical decisions, code review[email]Responsible for Phase delivery[Designer]Product DesignerUI/UX, component library, design system[email]Design quality[DevOps Lead]Infrastructure / DevOpsDeployment, monitoring, infrastructure setup[email]Production readiness[QA Lead]Quality AssuranceTest planning, test execution, bug tracking[email]Release readiness[Mobile Lead]Mobile DeveloperMobile app development, iOS/Android[email]v2.0 mobile[AI/ML Engineer]AI IntegrationOpenAI integration, prompt engineering[email]v2.0 AI[CRM Developer]Backend Developer (CRM)HubSpot/Pipedrive/Salesforce integration[email]v2.0 CRM[Customer Success]Customer SuccessUser feedback, onboarding support[email]Post-launch support
+Approval Gates
+GateApproverRequired ByStatusNotesPRD Approval (v1.0)Product Manager + Tech LeadMay 7, 2026✓ DONESign-off on v1.0 requirementsArchitecture Review (v1.0)Tech Lead + DevOpsMay 14, 2026✓ DONEInfrastructure design approvedPhase 1 Sign-Off (v1.0)Tech LeadMay 14, 2026✓ DONEAuth & DB workingPhase 2 Sign-Off (v1.0)Tech LeadMay 28, 2026✓ DONEMeta integration workingPhase 3 Sign-Off (v1.0)Tech Lead + QAJune 11, 2026✓ DONEAutomation end-to-end testedPhase 4 Sign-Off (v1.0)Tech Lead + DevOps + QAJune 25, 2026✓ DONEProduction readySecurity Review (v1.0)Security TeamJune 28, 2026✓ DONEOWASP compliance verifiedv1.0 Launch ApprovalProduct Manager + Tech Lead + DevOpsJuly 1, 2026✓ DONEAll systems goPRD Approval (v2.0)Product Manager + Tech LeadJuly 1, 2026TODOSign-off on v2.0 requirementsPhase 5 Sign-Off (v2.0)Backend LeadJuly 21, 2026TODOAI integration workingPhase 6 Sign-Off (v2.0)Mobile Lead + QASeptember 2, 2026TODOMobile app fully testedPhase 7 Sign-Off (v2.0)Backend Lead + DevOpsOctober 1, 2026TODOMulti-tenant + CRM workingPhase 8 Sign-Off (v2.0)QA Lead + DevOpsOctober 22, 2026TODOProduction readySecurity Review (v2.0)Security TeamOctober 15, 2026TODOAI/CRM/Mobile security verifiedApp Store SubmissionMobile Lead + LegalNovember 1, 2026TODOApps submittedv2.0 Launch ApprovalProduct Manager + Tech Lead + DevOps + Mobile LeadNovember 10, 2026TODOAll systems go
+
+16. REFERENCES & LINKS
+ItemLinkStatusDesign Files (v1.0)[Figma/Adobe XD link][TBD]Design Files (v2.0)[Figma/Adobe XD link][TBD]GitHub Repository[repo-url][TBD]Meta Graph API Docshttps://developers.facebook.com/docs/graph-apiActiveMeta OAuth Flowhttps://developers.facebook.com/docs/facebook-login/webActiveOpenAI API Docs (v2.0)https://platform.openai.com/docsActiveHubSpot API Docs (v2.0)https://developers.hubspot.com/docs/api/overviewActivePipedrive API Docs (v2.0)https://developers.pipedrive.com/docs/api/v1ActiveSalesforce API Docs (v2.0)https://developer.salesforce.com/docs/apisActiveFirebase Cloud Messaging (v2.0)https://firebase.google.com/docs/cloud-messagingActiveAPI Documentation[Swagger/OpenAPI link][TBD]Architecture Diagram[Link to architectural diagram][TBD]Database Schema[Prisma schema or ER diagram][TBD]Staging Environment (v1.0)https://staging.safd.app[TBD]Production Environment (v1.0)https://app.safd.app[TBD]Staging Environment (v2.0)https://staging-v2.safd.app[TBD]Production Environment (v2.0)https://app.safd.app (updated)[TBD]CI/CD Pipeline (v1.0)GitHub Actions [workflow link][TBD]CI/CD Pipeline (v2.0)GitHub Actions [workflow link][TBD]Monitoring Dashboard (v1.0)[Grafana/Datadog link][TBD]Monitoring Dashboard (v2.0)[Grafana/Datadog link][TBD]Incident Response Plan[Link to runbook][TBD]Slack Channel (v1.0)#safd-dev[TBD]Slack Channel (v2.0)#safd-v2-dev[TBD]Meeting Notes[Google Drive/Notion link][TBD]Related PRDsMobile app (v2.0), Team collaboration (v2.1), CRM Analytics (v2.1)[TBD]
+
+17. REVISION HISTORY
+VersionDateAuthorChangesv1.0May 1, 2026[Your Name]Initial PRD created — multi-tenant SaaS for Meta automation, landing page, registration, dashboard, rules, auto-reply, auto-DM, analytics, 4-phase implementation, 8-week timeline, 99.9% uptime targetv2.0November 10, 2026[Your Name]Added mobile app (React Native), AI reply generation (OpenAI/Claude/Gemini), multi-tenant account switching, CRM integration (HubSpot/Pipedrive/Salesforce), advanced analytics with ROI tracking, 4 additional phases (8 weeks), push notifications, offline mode, sentiment analysis, A/B testing
+
+END OF COMPLETE DOCUMENT
+
+Save this file as docs/PRD.md in your repository.
+
+---
+
+This is your **complete, production-ready PRD** covering:
+
+✅ **v1.0:** Full specification (completed July 1, 2026)
+✅ **v2.0:** Full specification (in development, completing November 10, 2026)
+✅ **17 Sections:** All details for both versions
+✅ **All Features:** P0, P1, P2, P3 features for both versions
+✅ **Complete Architecture:** Web, mobile, backend, database, infrastructure
+✅ **Timeline:** 16+ milestones across 6+ months
+✅ **Risks, Metrics, Stakeholders:** Full governance
+✅ **User Flows:** Complete end-to-end workflows
+
+Ready to build! 🚀

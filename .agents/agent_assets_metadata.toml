@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "FC8wxwD6f47cVnJEEPb-R"
+uri = "file://PRD.md"
+type = "text"
+title = "SAFD — Full Product Requirements Document"
