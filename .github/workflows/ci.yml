@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+# Use Node 24 runner internals to silence the Node 20 deprecation warning
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ─────────────────────────────────────────────
   # JOB 1 – Backend tests
@@ -16,12 +20,16 @@ jobs:
     env:
       DATABASE_URL: postgresql://safd_test:safd_test_pwd@localhost:5433/safd_test
       SESSION_SECRET: ci-test-secret-not-used-in-production
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Enable corepack / pnpm
-        run: corepack enable
+      - name: Verify tools
+        run: |
+          echo "node: $(node --version)"
+          echo "pnpm: $(pnpm --version)"
+          echo "docker: $(docker --version)"
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
@@ -66,12 +74,16 @@ jobs:
   test-frontend:
     name: Frontend Tests
     runs-on: self-hosted
+    env:
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Enable corepack / pnpm
-        run: corepack enable
+      - name: Verify tools
+        run: |
+          echo "node: $(node --version)"
+          echo "pnpm: $(pnpm --version)"
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
@@ -93,6 +105,8 @@ jobs:
     runs-on: self-hosted
     needs: [test-backend, test-frontend]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    env:
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
     steps:
       - name: Run zero-downtime deployment
